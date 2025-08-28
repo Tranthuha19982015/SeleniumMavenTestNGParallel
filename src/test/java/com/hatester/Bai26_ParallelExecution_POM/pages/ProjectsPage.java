@@ -1,10 +1,9 @@
-package Bai26_ParallelExecution_POM.pages;
+package com.hatester.Bai26_ParallelExecution_POM.pages;
 
-import driver.DriverManager;
-import keywords.WebUI;
+import com.hatester.drivers.DriverManager;
+import com.hatester.keywords.WebUI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 

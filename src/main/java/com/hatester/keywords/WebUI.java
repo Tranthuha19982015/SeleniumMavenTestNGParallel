@@ -1,6 +1,6 @@
-package keywords;
+package com.hatester.keywords;
 
-import driver.DriverManager;
+import com.hatester.drivers.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -318,7 +318,7 @@ public class WebUI {
     //cuộn/di chuyển tới 1 phần tử
     public static void scrollToElement(By by) {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(false);", getWebElement(by));
+        js.executeScript("arguments[0].scrollIntoView(false);", waitForElementVisible(by));
     }
 
     public static void scrollToElement(WebElement element) {
@@ -328,12 +328,12 @@ public class WebUI {
 
     public static void scrollToElementAtTop(By by) {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(true);", getWebElement(by));
+        js.executeScript("arguments[0].scrollIntoView(true);", waitForElementVisible(by));
     }
 
     public static void scrollToElementAtBottom(By by) {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(false);", getWebElement(by));
+        js.executeScript("arguments[0].scrollIntoView(false);", waitForElementVisible(by));
     }
 
     public static void scrollToElementAtTop(WebElement element) {

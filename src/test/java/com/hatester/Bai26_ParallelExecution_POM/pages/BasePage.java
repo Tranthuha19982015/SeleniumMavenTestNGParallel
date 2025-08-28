@@ -1,9 +1,7 @@
-package Bai26_ParallelExecution_POM.pages;
+package com.hatester.Bai26_ParallelExecution_POM.pages;
 
-import driver.DriverManager;
-import keywords.WebUI;
+import com.hatester.keywords.WebUI;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class BasePage {
 

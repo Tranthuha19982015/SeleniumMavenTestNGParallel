@@ -1,10 +1,9 @@
-package Bai26_ParallelExecution_POM.pages;
+package com.hatester.Bai26_ParallelExecution_POM.pages;
 
-import driver.DriverManager;
-import keywords.WebUI;
+import com.hatester.drivers.DriverManager;
+import com.hatester.keywords.WebUI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
@@ -23,7 +22,11 @@ public class TasksPage extends BasePage {
     private By labelComplete = By.xpath("//span[normalize-space()='Complete']/preceding-sibling::span");
     private By taskTableRows = By.xpath("//table[@id='tasks']/descendant::tbody/tr");
     private By inputSearchTasks = By.xpath("//div[@id='tasks_filter']/descendant::input[@type='search']");
-    private By firstRowItemTasksName = By.xpath("//table[@id='tasks']//tbody/tr[1]/td[3]/a[contains(@href,'view')]");
+
+    private By firstRowItemTasksName(String taskName) {
+        String text = "//table[@id='tasks']//a[normalize-space()='" + taskName + "']";
+        return By.xpath(text);
+    }
 
     //Locators of elements on Add New Task page
     private By headerAddNewTask = By.xpath("//h4[@id='myModalLabel']");
@@ -198,9 +201,10 @@ public class TasksPage extends BasePage {
         WebUI.waitForPageLoaded();
     }
 
-    public void verifyTaskListVisibleAfterClosingTaskDetailPopup(){
+    public void verifyTaskListVisibleAfterClosingTaskDetailPopup() {
         WebUI.waitForElementNotVisible(popupTaskDetail);
     }
+
     public void searchAndCheckTaskInTable(String subject) {
         WebUI.clickElement(inputSearchTasks);
         WebUI.clearElementText(inputSearchTasks);
@@ -208,8 +212,7 @@ public class TasksPage extends BasePage {
         WebUI.setKey(inputSearchTasks, Keys.ENTER);
         WebUI.sleep(1);
         WebUI.waitForPageLoaded();
-//        WebUI.waitForSearchResult(taskTableRows);
-        Assert.assertEquals(WebUI.getElementText(firstRowItemTasksName), subject, "FAILED. Incorrect Task added");
+        Assert.assertTrue(WebUI.checkElementExist(firstRowItemTasksName(subject)), "FAILED. Incorrect Task added");
     }
 
     public String getValueLeadInTask() {

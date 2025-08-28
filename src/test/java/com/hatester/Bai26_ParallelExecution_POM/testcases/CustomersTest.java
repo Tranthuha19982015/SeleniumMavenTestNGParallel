@@ -1,10 +1,10 @@
-package Bai26_ParallelExecution_POM.testcases;
+package com.hatester.Bai26_ParallelExecution_POM.testcases;
 
 
-import Bai26_ParallelExecution_POM.pages.CustomersPage;
-import Bai26_ParallelExecution_POM.pages.DashboardPage;
-import Bai26_ParallelExecution_POM.pages.LoginPage;
-import common.BaseTest;
+import com.hatester.Bai26_ParallelExecution_POM.pages.CustomersPage;
+import com.hatester.Bai26_ParallelExecution_POM.pages.DashboardPage;
+import com.hatester.Bai26_ParallelExecution_POM.pages.LoginPage;
+import com.hatester.common.BaseTest;
 import org.testng.annotations.Test;
 
 import java.text.SimpleDateFormat;

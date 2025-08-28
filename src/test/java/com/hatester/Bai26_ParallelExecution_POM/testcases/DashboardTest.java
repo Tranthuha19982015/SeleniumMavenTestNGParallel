@@ -1,11 +1,11 @@
-package Bai26_ParallelExecution_POM.testcases;
+package com.hatester.Bai26_ParallelExecution_POM.testcases;
 
 
-import Bai26_ParallelExecution_POM.pages.DashboardPage;
-import Bai26_ParallelExecution_POM.pages.LeadsPage;
-import Bai26_ParallelExecution_POM.pages.LoginPage;
-import Bai26_ParallelExecution_POM.pages.ProjectsPage;
-import common.BaseTest;
+import com.hatester.Bai26_ParallelExecution_POM.pages.DashboardPage;
+import com.hatester.Bai26_ParallelExecution_POM.pages.LeadsPage;
+import com.hatester.Bai26_ParallelExecution_POM.pages.LoginPage;
+import com.hatester.Bai26_ParallelExecution_POM.pages.ProjectsPage;
+import com.hatester.common.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

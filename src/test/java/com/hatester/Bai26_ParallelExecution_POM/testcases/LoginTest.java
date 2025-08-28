@@ -1,7 +1,7 @@
-package Bai26_ParallelExecution_POM.testcases;
+package com.hatester.Bai26_ParallelExecution_POM.testcases;
 
-import Bai26_ParallelExecution_POM.pages.LoginPage;
-import common.BaseTest;
+import com.hatester.Bai26_ParallelExecution_POM.pages.LoginPage;
+import com.hatester.common.BaseTest;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {

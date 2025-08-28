@@ -1,11 +1,11 @@
-package Bai26_ParallelExecution_POM.testcases;
+package com.hatester.Bai26_ParallelExecution_POM.testcases;
 
 
-import Bai26_ParallelExecution_POM.pages.DashboardPage;
-import Bai26_ParallelExecution_POM.pages.LeadsPage;
-import Bai26_ParallelExecution_POM.pages.LoginPage;
-import Bai26_ParallelExecution_POM.pages.TasksPage;
-import common.BaseTest;
+import com.hatester.Bai26_ParallelExecution_POM.pages.DashboardPage;
+import com.hatester.Bai26_ParallelExecution_POM.pages.LeadsPage;
+import com.hatester.Bai26_ParallelExecution_POM.pages.LoginPage;
+import com.hatester.Bai26_ParallelExecution_POM.pages.TasksPage;
+import com.hatester.common.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -25,6 +25,7 @@ public class LeadsTest extends BaseTest {
         leadsPage = dashboardPage.clickMenuLeads();
 
         String leadsName = "Leads Htest " + System.currentTimeMillis();
+        leadsPage.clickIconLeadsSummary();
         leadsPage.verifyNavigateToLeadPage();
         leadsPage.clickButtonNewLead();
         leadsPage.verifyOpenWindowAddNewLead();

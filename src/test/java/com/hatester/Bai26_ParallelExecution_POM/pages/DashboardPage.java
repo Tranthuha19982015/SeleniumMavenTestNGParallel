@@ -1,8 +1,7 @@
-package Bai26_ParallelExecution_POM.pages;
+package com.hatester.Bai26_ParallelExecution_POM.pages;
 
-import keywords.WebUI;
+import com.hatester.keywords.WebUI;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class DashboardPage extends BasePage {

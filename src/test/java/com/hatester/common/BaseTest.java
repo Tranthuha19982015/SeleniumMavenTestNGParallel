@@ -1,6 +1,6 @@
-package common;
+package com.hatester.common;
 
-import driver.DriverManager;
+import com.hatester.drivers.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;

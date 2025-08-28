@@ -1,9 +1,8 @@
-package Bai26_ParallelExecution_POM.pages;
+package com.hatester.Bai26_ParallelExecution_POM.pages;
 
-import keywords.WebUI;
+import com.hatester.keywords.WebUI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class LeadsPage extends BasePage {
@@ -18,7 +17,11 @@ public class LeadsPage extends BasePage {
     private By leadTableRows = By.xpath("//table[@id='leads']/descendant::tbody/tr");
 
     // The first row item in the leads table
-    private By firstRowItemLeadName = By.xpath("//table[@id='leads']//tbody/tr[1]/td[3]/a");
+    private By firstRowItemLeadName(String leadName) {
+        String text = "//table[@id='leads']//a[normalize-space()='" + leadName + "']";
+        return By.xpath(text);
+    }
+
     private By firstRowItemLeadEmail = By.xpath("//table[@id='leads']//tbody/tr[1]/td[5]/a");
     private By firstRowItemLeadStatus = By.xpath("//table[@id='leads']//tbody/tr[1]//td/span[contains(@class,'lead-status')]");
 
@@ -70,7 +73,11 @@ public class LeadsPage extends BasePage {
     //Tab Tasks
     private By tasksTab = By.xpath("//div[@class='top-lead-menu']/descendant::li/a[contains(normalize-space(),'Tasks')]");
     private By inputSearchTaskOnLeadDetailPage = By.xpath("//div[@id='related_tasks_filter']/descendant::input[@type='search']");
-    private By firstRowItemTaskOnLeadDetailPage = By.xpath("//table[@id='related_tasks']//tbody/tr[1]//td[2]/a");
+
+    private By firstRowItemTaskOnLeadDetailPage(String taskName) {
+        String text = "//table[@id='related_tasks']//a[normalize-space()='" + taskName + "']";
+        return By.xpath(text);
+    }
 
 
     public void clickIconLeadsSummary() {
@@ -146,10 +153,6 @@ public class LeadsPage extends BasePage {
         Assert.assertTrue(isDisplayed, "The Alert Message does not displayed.");
     }
 
-    public String getFirstRowItemLeadName() {
-        return WebUI.getElementText(firstRowItemLeadName);
-    }
-
     public String getFirstRowItemLeadEmail() {
         return WebUI.getElementText(firstRowItemLeadEmail);
     }
@@ -167,7 +170,7 @@ public class LeadsPage extends BasePage {
         WebUI.setTextAndKey(inputSearchLead, name, Keys.ENTER);
         WebUI.sleep(1);
         WebUI.waitForPageLoaded();
-        Assert.assertEquals(getFirstRowItemLeadName(), name, "FAILED. Incorrect Lead added.");
+        Assert.assertTrue(WebUI.checkElementExist(firstRowItemLeadName(name)), "FAILED. Incorrect Lead added.");
     }
 
     public String getTotalStatusActiveLeads() {
@@ -207,11 +210,11 @@ public class LeadsPage extends BasePage {
         return WebUI.getWebElements(totalStatusCustomerLeads).size();
     }
 
-    public void clickFirstIteamName() {
+    public void clickFirstIteamName(String leadName) {
         WebUI.waitForPageLoaded();
-        WebUI.moveToElement(firstRowItemLeadName);
+        WebUI.moveToElement(firstRowItemLeadName(leadName));
         WebUI.sleep(1);
-        WebUI.clickElement(firstRowItemLeadName);
+        WebUI.clickElement(firstRowItemLeadName(leadName));
     }
 
     public void clickTaskTabOnLeadDetailPage() {
@@ -229,6 +232,6 @@ public class LeadsPage extends BasePage {
         WebUI.setKey(inputSearchTaskOnLeadDetailPage, Keys.ENTER);
         WebUI.sleep(1);
         WebUI.waitForPageLoaded();
-        Assert.assertEquals(WebUI.getElementText(firstRowItemTaskOnLeadDetailPage), taskName, "Task Name not match.");
+        Assert.assertTrue(WebUI.checkElementExist(firstRowItemTaskOnLeadDetailPage(taskName)), "Task Name not match.");
     }
 }
