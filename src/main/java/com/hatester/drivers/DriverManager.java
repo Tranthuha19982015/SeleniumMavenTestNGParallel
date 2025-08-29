@@ -6,6 +6,9 @@ public class DriverManager {
     //Khởi tạo đối tượng WebDriver theo dạng ThreadLocal (để driver đó có thể lưu được nhiều luồng khác nhau)
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
+    private DriverManager() {
+    }
+
     public static WebDriver getDriver() {
         //Hàm get() thuộc ThreadLocal
         //Hỗ trợ lấy ra từng session driver theo từng luồng khác nhau
