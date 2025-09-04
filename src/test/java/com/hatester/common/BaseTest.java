@@ -19,9 +19,7 @@ public class BaseTest {
     @Parameters({"browser"})
     public void createDriver(@Optional("chrome") String browserName) {
         WebDriver driver;
-
-
-
+        PropertiesHelper.loadAllFiles();
         switch (browserName.trim().toLowerCase()) {
             case "chrome":
                 System.out.println("Launching Chrome browser...");

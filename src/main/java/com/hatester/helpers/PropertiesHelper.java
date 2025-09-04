@@ -1,4 +1,4 @@
-import com.hatester.helpers.SystemHelper;
+package com.hatester.helpers;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Properties;
 
-//Khai báo các hàm hỗ trợ đọc/ghi file properties
 public class PropertiesHelper {
 
     private static Properties properties;
@@ -99,5 +98,4 @@ public class PropertiesHelper {
             System.out.println(e.getMessage());
         }
     }
-
 }
