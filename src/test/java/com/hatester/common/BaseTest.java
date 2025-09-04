@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
+import com.hatester.helpers.*;
 
 public class BaseTest {
     public SoftAssert softAssert;
@@ -18,6 +19,9 @@ public class BaseTest {
     @Parameters({"browser"})
     public void createDriver(@Optional("chrome") String browserName) {
         WebDriver driver;
+
+
+
         switch (browserName.trim().toLowerCase()) {
             case "chrome":
                 System.out.println("Launching Chrome browser...");
