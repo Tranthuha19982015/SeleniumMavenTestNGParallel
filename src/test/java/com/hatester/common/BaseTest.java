@@ -1,6 +1,7 @@
 package com.hatester.common;
 
 import com.hatester.drivers.DriverManager;
+import com.hatester.helpers.PropertiesHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -10,7 +11,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
-import com.hatester.helpers.*;
 
 public class BaseTest {
     public SoftAssert softAssert;
@@ -19,7 +19,15 @@ public class BaseTest {
     @Parameters({"browser"})
     public void createDriver(@Optional("chrome") String browserName) {
         WebDriver driver;
+
+        //Nếu properties có truyền browser thì ưu tiên lấy browser từ đây, k có thì lấy từ file xml, nếu xml không truyền thì lấy từ Optional
         PropertiesHelper.loadAllFiles();
+        if (PropertiesHelper.getValue("BROWSER").isEmpty() && PropertiesHelper.getValue("BROWSER").isBlank()) {
+            browserName = browserName;
+        } else {
+            browserName = PropertiesHelper.getValue("BROWSER");
+        }
+
         switch (browserName.trim().toLowerCase()) {
             case "chrome":
                 System.out.println("Launching Chrome browser...");

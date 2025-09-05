@@ -2,6 +2,7 @@ package com.hatester.Bai26_ParallelExecution_POM.testcases;
 
 import com.hatester.Bai26_ParallelExecution_POM.pages.LoginPage;
 import com.hatester.common.BaseTest;
+import com.hatester.helpers.PropertiesHelper;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
@@ -13,6 +14,7 @@ public class LoginTest extends BaseTest {
         loginPage = new LoginPage(); //Khởi tạo đối tượng LoginPage với driver lấy từ BaseTest
         loginPage.loginCRM("admin@example.com", "123456");
         loginPage.verifyLoginSuccess();
+        PropertiesHelper.setValue("email","admin@example.com","src/test/resources/configs/data.properties");
     }
 
     @Test(priority = 2)

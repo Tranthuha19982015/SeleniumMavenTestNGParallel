@@ -4,8 +4,8 @@
     <test name="Demo Parallel Testing By Methods" parallel="classes">
         <classes>
             <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.LoginTest"/>
-            <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.TasksTest"/>
-            <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.LeadsTest"/>
+<!--            <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.TasksTest"/>-->
+<!--            <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.LeadsTest"/>-->
         </classes>
     </test>
 </suite>

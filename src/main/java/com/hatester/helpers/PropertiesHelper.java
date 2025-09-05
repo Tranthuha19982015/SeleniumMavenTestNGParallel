@@ -17,6 +17,7 @@ public class PropertiesHelper {
     //3 hàm đọc file (chọn 1 trong 3)
     //Hàm đọc multi file
     public static Properties loadAllFiles() {
+        //Khai báo danh sách file .properties
         LinkedList<String> files = new LinkedList<>();
         // Add tất cả file Properties vào đây theo mẫu
         files.add("src/test/resources/configs/config.properties");
@@ -25,11 +26,10 @@ public class PropertiesHelper {
 
         try {
             properties = new Properties();
-
             for (String f : files) {
                 Properties tempProp = new Properties();
                 linkFile = SystemHelper.getCurrentDir() + f;
-                file = new FileInputStream(linkFile); //đọc nội dung của file được chỉ định
+                file = new FileInputStream(linkFile); //Mở file (đọc nội dung của file được chỉ định)
                 tempProp.load(file); //hàm load nội dung để duyệt file
                 properties.putAll(tempProp); //đẩy vào đối tượng properties
             }
@@ -91,6 +91,24 @@ public class PropertiesHelper {
             //Ghi vào cùng file Prop với file lấy ra
             out = new FileOutputStream(linkFile);
             System.out.println(linkFile);
+            properties.setProperty(key, keyValue);
+            properties.store(out, null);
+            out.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void setValue(String key, String keyValue, String filePath) {
+        try {
+            if (file == null) {
+                setDefaultFile();
+                //khai báo 1 đường dẫn để trích xuất data đó ra (đang đọc ghi trên cùng 1 file)
+                out = new FileOutputStream(SystemHelper.getCurrentDir() + filePath);
+            }
+            //Ghi vào cùng file Prop với file lấy ra
+            out = new FileOutputStream(SystemHelper.getCurrentDir() + filePath);
+            System.out.println(SystemHelper.getCurrentDir() + filePath);
             properties.setProperty(key, keyValue);
             properties.store(out, null);
             out.close();

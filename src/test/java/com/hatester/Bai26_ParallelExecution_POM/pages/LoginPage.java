@@ -1,14 +1,11 @@
 package com.hatester.Bai26_ParallelExecution_POM.pages;
 
+import com.hatester.helpers.PropertiesHelper;
 import com.hatester.keywords.WebUI;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
 public class LoginPage extends BasePage {
-
-    //Khai báo URL của trang Login
-    private String urlLoginAdmin = "https://crm.anhtester.com/admin/authentication";
-
     //Khai báo các đối tượng element thuộc về trang Login (khai báo những element cần thiết cho TCs sau này)
     private By headerLoginPage = By.xpath("//h1[normalize-space()='Login']");
     private By inputEmail = By.xpath("//input[@id='email']");
@@ -28,7 +25,7 @@ public class LoginPage extends BasePage {
     }
 
     public void navigateToLoginAdminCRM() {
-        WebUI.openURL(urlLoginAdmin);
+        WebUI.openURL(PropertiesHelper.getValue("URL"));
         WebUI.waitForPageLoaded();
     }
 
