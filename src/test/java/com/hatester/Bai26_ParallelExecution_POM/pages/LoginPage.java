@@ -51,8 +51,8 @@ public class LoginPage extends BasePage {
 
     public DashboardPage loginCRM() { //Dùng để liên kết trang
         navigateToLoginAdminCRM();
-        enterEmail("admin@example.com");
-        enterPassword("123456");
+        enterEmail(PropertiesHelper.getValue("EMAIL"));
+        enterPassword(PropertiesHelper.getValue("PASSWORD"));
         clickLoginButton();
         WebUI.waitForPageLoaded();
         verifyLoginSuccess();

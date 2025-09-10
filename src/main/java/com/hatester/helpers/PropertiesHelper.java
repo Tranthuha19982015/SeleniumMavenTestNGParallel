@@ -18,6 +18,7 @@ public class PropertiesHelper {
     //Hàm đọc multi file
     public static Properties loadAllFiles() {
         //Khai báo danh sách file .properties
+        //LinkedList: danh sách đường dẫn
         LinkedList<String> files = new LinkedList<>();
         // Add tất cả file Properties vào đây theo mẫu
         files.add("src/test/resources/configs/config.properties");
@@ -40,10 +41,10 @@ public class PropertiesHelper {
     }
 
     //Hàm phụ (đọc 1 file được chỉ định)
-    public static void setFile(String relPropertiesFilePath) {
+    public static void setFile(String relativePropertiesFilePath) {
         properties = new Properties();
         try {
-            linkFile = SystemHelper.getCurrentDir() + relPropertiesFilePath;
+            linkFile = SystemHelper.getCurrentDir() + relativePropertiesFilePath; //đường dẫn cục bộ tính từ đường dẫn từ project
             file = new FileInputStream(linkFile);
             properties.load(file);
             file.close(); //không đọc nữa để tiết kiệm bộ nhớ
@@ -81,7 +82,7 @@ public class PropertiesHelper {
     }
 
     //Set Lấy giá trị trong file properties theo key = value
-    public static void setValue(String key, String keyValue) {
+    public static void setValue(String key, String value) {
         try {
             if (file == null) {
                 setDefaultFile();
@@ -91,7 +92,7 @@ public class PropertiesHelper {
             //Ghi vào cùng file Prop với file lấy ra
             out = new FileOutputStream(linkFile);
             System.out.println(linkFile);
-            properties.setProperty(key, keyValue);
+            properties.setProperty(key, value);
             properties.store(out, null);
             out.close();
         } catch (Exception e) {

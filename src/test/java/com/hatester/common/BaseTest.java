@@ -6,14 +6,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 public class BaseTest {
     public SoftAssert softAssert;
+
+    @BeforeSuite
+    public void setupBeforeSuite() {
+        PropertiesHelper.loadAllFiles();
+    }
 
     @BeforeMethod
     @Parameters({"browser"})
@@ -21,8 +23,7 @@ public class BaseTest {
         WebDriver driver;
 
         //Nếu properties có truyền browser thì ưu tiên lấy browser từ đây, k có thì lấy từ file xml, nếu xml không truyền thì lấy từ Optional
-        PropertiesHelper.loadAllFiles();
-        if (PropertiesHelper.getValue("BROWSER").isEmpty() && PropertiesHelper.getValue("BROWSER").isBlank()) {
+        if (PropertiesHelper.getValue("BROWSER") == null || PropertiesHelper.getValue("BROWSER").isEmpty()) {
             browserName = browserName;
         } else {
             browserName = PropertiesHelper.getValue("BROWSER");
