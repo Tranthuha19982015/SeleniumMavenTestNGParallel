@@ -5,7 +5,7 @@ import java.io.File;
 public class SystemHelper {
 
     //Hàm lấy ra đường dẫn hiện tại từ ổ đĩa trỏ tới project của mình
-    public static String getCurrentDir() {
+    public static String getCurrentDirectory() {
         String current = System.getProperty("user.dir") + File.separator;
         return current;
     }

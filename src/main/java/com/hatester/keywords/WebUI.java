@@ -16,8 +16,8 @@ import java.util.List;
 
 public class WebUI {
 
-    private static int WAIT_TIMEOUT = Integer.parseInt(PropertiesHelper.getValue("EXPLICIT_WAIT"));
-    private static double STEP_TIME = Integer.parseInt(PropertiesHelper.getValue("STEP_TIME"));
+    private static int WAIT_TIMEOUT = Integer.parseInt(PropertiesHelper.getValue("WAIT_TIMEOUT"));
+    private static double STEP_TIME = Double.parseDouble(PropertiesHelper.getValue("STEP_TIME"));
     private static int PAGE_LOAD_TIMEOUT = Integer.parseInt(PropertiesHelper.getValue("PAGE_LOAD_TIMEOUT"));
 
     public static void logConsole(Object message) {

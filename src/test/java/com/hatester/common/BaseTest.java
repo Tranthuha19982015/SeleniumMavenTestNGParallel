@@ -4,6 +4,7 @@ import com.hatester.drivers.DriverManager;
 import com.hatester.helpers.PropertiesHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
@@ -32,7 +33,13 @@ public class BaseTest {
         switch (browserName.trim().toLowerCase()) {
             case "chrome":
                 System.out.println("Launching Chrome browser...");
-                driver = new ChromeDriver();
+
+                ChromeOptions options = new ChromeOptions();
+                if (PropertiesHelper.getValue("HEADLESS").equalsIgnoreCase("true")) {
+                    options.addArguments("--headless=new");  //chạy headless
+                    options.addArguments("--window-size=" + PropertiesHelper.getValue("WINDOW-SIZE")); // set kích thước
+                }
+                driver = new ChromeDriver(options);
                 break;
             case "firefox":
                 System.out.println("Launching Firefox browser...");
@@ -48,8 +55,9 @@ public class BaseTest {
         }
 
         DriverManager.setDriver(driver);
-
-        DriverManager.getDriver().manage().window().maximize();
+        if (PropertiesHelper.getValue("HEADLESS").equalsIgnoreCase("false")) {
+            DriverManager.getDriver().manage().window().maximize();
+        }
         softAssert = new SoftAssert();
     }
 

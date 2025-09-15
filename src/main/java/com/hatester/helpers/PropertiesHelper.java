@@ -29,7 +29,7 @@ public class PropertiesHelper {
             properties = new Properties();
             for (String f : files) {
                 Properties tempProp = new Properties();
-                linkFile = SystemHelper.getCurrentDir() + f;
+                linkFile = SystemHelper.getCurrentDirectory() + f;
                 file = new FileInputStream(linkFile); //Mở file (đọc nội dung của file được chỉ định)
                 tempProp.load(file); //hàm load nội dung để duyệt file
                 properties.putAll(tempProp); //đẩy vào đối tượng properties
@@ -44,7 +44,7 @@ public class PropertiesHelper {
     public static void setFile(String relativePropertiesFilePath) {
         properties = new Properties();
         try {
-            linkFile = SystemHelper.getCurrentDir() + relativePropertiesFilePath; //đường dẫn cục bộ tính từ đường dẫn từ project
+            linkFile = SystemHelper.getCurrentDirectory() + relativePropertiesFilePath; //đường dẫn cục bộ tính từ đường dẫn từ project
             file = new FileInputStream(linkFile);
             properties.load(file);
             file.close(); //không đọc nữa để tiết kiệm bộ nhớ
@@ -57,7 +57,7 @@ public class PropertiesHelper {
     public static void setDefaultFile() {
         properties = new Properties();
         try {
-            linkFile = SystemHelper.getCurrentDir() + relPropertiesFilePathDefault;
+            linkFile = SystemHelper.getCurrentDirectory() + relPropertiesFilePathDefault;
             file = new FileInputStream(linkFile);
             properties.load(file);
             file.close();
@@ -87,7 +87,7 @@ public class PropertiesHelper {
             if (file == null) {
                 setDefaultFile();
                 //khai báo 1 đường dẫn để trích xuất data đó ra (đang đọc ghi trên cùng 1 file)
-                out = new FileOutputStream(SystemHelper.getCurrentDir() + relPropertiesFilePathDefault);
+                out = new FileOutputStream(SystemHelper.getCurrentDirectory() + relPropertiesFilePathDefault);
             }
             //Ghi vào cùng file Prop với file lấy ra
             out = new FileOutputStream(linkFile);
@@ -105,11 +105,11 @@ public class PropertiesHelper {
             if (file == null) {
                 setDefaultFile();
                 //khai báo 1 đường dẫn để trích xuất data đó ra (đang đọc ghi trên cùng 1 file)
-                out = new FileOutputStream(SystemHelper.getCurrentDir() + filePath);
+                out = new FileOutputStream(SystemHelper.getCurrentDirectory() + filePath);
             }
             //Ghi vào cùng file Prop với file lấy ra
-            out = new FileOutputStream(SystemHelper.getCurrentDir() + filePath);
-            System.out.println(SystemHelper.getCurrentDir() + filePath);
+            out = new FileOutputStream(SystemHelper.getCurrentDirectory() + filePath);
+            System.out.println(SystemHelper.getCurrentDirectory() + filePath);
             properties.setProperty(key, keyValue);
             properties.store(out, null);
             out.close();
