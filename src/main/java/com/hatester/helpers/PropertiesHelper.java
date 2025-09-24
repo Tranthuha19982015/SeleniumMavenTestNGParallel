@@ -22,7 +22,7 @@ public class PropertiesHelper {
         LinkedList<String> files = new LinkedList<>();
         // Add tất cả file Properties vào đây theo mẫu
         files.add("src/test/resources/configs/config.properties");
-//        files.add("src/test/resources/configs/local.properties");
+        files.add("src/test/resources/configs/local.properties");
 //        files.add("src/test/resources/configs/production.properties");
 
         try {
@@ -37,6 +37,16 @@ public class PropertiesHelper {
             return properties;
         } catch (IOException ioe) {
             return new Properties();
+        }
+        finally {
+            if (file != null) {
+                try {
+                    file.close();
+                    file = null; //reset về null
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
