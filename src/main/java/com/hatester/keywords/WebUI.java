@@ -163,8 +163,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.invisibilityOf(getWebElement(by)));
         } catch (Throwable error) {
-            logConsole("Timeout waiting for the element Not Visible with " + by.toString());
-            Assert.fail("Timeout waiting for the element Not Visible with " + by.toString());
+            logConsole("Timeout waiting for the element Not Visible " + by.toString());
+            Assert.fail("Timeout waiting for the element Not Visible " + by.toString());
         }
     }
 
@@ -174,8 +174,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.numberOfElementsToBeLessThan(by, oldCount));
         } catch (Throwable error) {
-            logConsole("Timeout waiting for the element Not Visible with " + by.toString());
-            Assert.fail("Timeout waiting for the element Not Visible with " + by.toString());
+            logConsole("Timeout while waiting for search results. " + by.toString());
+            Assert.fail("Timeout while waiting for search results. " + by.toString());
         }
     }
 
@@ -185,8 +185,8 @@ public class WebUI {
             wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
             System.out.println("Switched to iframe: " + by);
         } catch (Throwable error) {
-            logConsole("Timeout waiting for the iFrame Visible with " + by.toString());
-            Assert.fail("Timeout waiting for the iFrame Visible with " + by.toString());
+            logConsole("Timeout waiting for the iFrame Visible " + by.toString());
+            Assert.fail("Timeout waiting for the iFrame Visible " + by.toString());
         }
     }
 
