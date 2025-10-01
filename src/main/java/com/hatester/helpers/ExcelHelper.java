@@ -25,18 +25,22 @@ public class ExcelHelper {
         try {
             File f = new File(excelPath);
 
+            //Kiểm tra file có tồn tại hay không
             if (!f.exists()) {
                 System.out.println("File doesn't exist.");
             }
 
+            //đọc đường dẫn của file excel mà mình chỉ định rồi lưu vào đối tượng fileIn
             fileIn = new FileInputStream(excelPath);
-            wb = WorkbookFactory.create(fileIn);
-            sh = wb.getSheet(sheetName);
+            wb = WorkbookFactory.create(fileIn); //dùng Workbook chuyên nghiệp của Apache POI để tạo phiên làm việc đối với file excel
+            sh = wb.getSheet(sheetName); //lấy data theo từng sheet
 
+            //kiểm tra sheet đó tồn tại hay không
             if (sh == null) {
                 throw new Exception("Sheet name doesn't exist.");
             }
 
+            //
             this.excelFilePath = excelPath;
 
             //adding all the column header names to the map 'columns'
@@ -49,6 +53,7 @@ public class ExcelHelper {
         }
     }
 
+    //lấy data theo từng ô trong file Excel
     public String getCellData(int columnIndex, int rowIndex) {
         try {
             cell = sh.getRow(rowIndex).getCell(columnIndex);
@@ -83,7 +88,7 @@ public class ExcelHelper {
     public String getCellData(String columnName, int rowIndex) {
         if (columns.get(columnName) == null) {
             try {
-                throw new Exception("Sheet name doesn't exist.");
+                throw new Exception("Column name doesn't exist.");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -103,14 +108,15 @@ public class ExcelHelper {
             if (cell == null) {
                 cell = row.createCell(columnIndex);
             }
-            cell.setCellValue(text);
+            cell.setCellValue(text); //set giá trị vào ô đó
 
+            //chỉnh format của ô đó
             XSSFCellStyle style = (XSSFCellStyle) wb.createCellStyle();
-            style.setFillPattern(FillPatternType.NO_FILL);
-            style.setAlignment(HorizontalAlignment.CENTER);
-            style.setVerticalAlignment(VerticalAlignment.CENTER);
+            style.setFillPattern(FillPatternType.NO_FILL); //màu nền của ô
+            style.setAlignment(HorizontalAlignment.CENTER); //căn theo chiều ngang
+            style.setVerticalAlignment(VerticalAlignment.CENTER); //căn theo chiều dọc
 
-            cell.setCellStyle(style);
+            cell.setCellStyle(style); //set format vào ô đó
 
             fileOut = new FileOutputStream(excelFilePath);
             wb.write(fileOut);
