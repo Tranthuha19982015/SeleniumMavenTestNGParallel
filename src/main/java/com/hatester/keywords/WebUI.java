@@ -24,6 +24,15 @@ public class WebUI {
         System.out.println(message);
     }
 
+    public static WebElement getWebElement(By by) {
+        return DriverManager.getDriver().findElement(by);
+    }
+
+    public static List<WebElement> getWebElements(By by) {
+        waitForElementVisible(by);
+        return DriverManager.getDriver().findElements(by);
+    }
+
     public static void highlightElement(By by) {
         // Highlight the element using JavaScript
         String script = "arguments[0].style.border='3px solid red';";
@@ -193,15 +202,6 @@ public class WebUI {
     public static void switchToDefaultContent() {
         DriverManager.getDriver().switchTo().defaultContent();
         System.out.println("Switched back to default content");
-    }
-
-    public static WebElement getWebElement(By by) {
-        return DriverManager.getDriver().findElement(by);
-    }
-
-    public static List<WebElement> getWebElements(By by) {
-        waitForElementVisible(by);
-        return DriverManager.getDriver().findElements(by);
     }
 
     public static Boolean checkElementExist(By by) {
