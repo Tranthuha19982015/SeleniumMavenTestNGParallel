@@ -10,16 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ExcelHelper {
-    private FileInputStream fileIn;
-    private FileOutputStream fileOut;
-    private Workbook wb;
-    private Sheet sh;
-    private Row row;
-    private Cell cell;
-    private CellStyle cellStyle;
-    private Color color;
-    private String excelFilePath;
-    private Map<String, Integer> columns = new HashMap<>();
+    private FileInputStream fileIn;  // Đọc dữ liệu từ file Excel
+    private FileOutputStream fileOut;  // Ghi dữ liệu ra file Excel
+    private Workbook wb;  // Đại diện cho toàn bộ workbook (tệp Excel)
+    private Sheet sh;  // Đại diện cho một sheet trong workbook
+    private Row row;  // Đại diện cho một dòng trong Excel
+    private Cell cell;  // Đại diện cho một ô trong Excel
+    private CellStyle cellStyle;  // Dùng để định dạng ô (ví dụ: font, màu nền, border)
+    private Color color;  // Đại diện cho màu (dùng trong định dạng)
+    private String excelFilePath;  // Đường dẫn tới file Excel
+    private Map<String, Integer> columns = new HashMap<>();  // Lưu map tên cột -> chỉ số cột (header mapping)
 
     public void setExcelFile(String excelPath, String sheetName) {
         try {
