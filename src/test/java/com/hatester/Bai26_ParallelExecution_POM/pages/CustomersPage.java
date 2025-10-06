@@ -76,7 +76,7 @@ public class CustomersPage extends BasePage {
         WebUI.clickElement(buttonNewCustomer);
     }
 
-    public void fillDataForAddNewCustomer(String customerName) {
+    public void fillDataForAddNewCustomer(String customerName, String group) {
         WebUI.setText(inputCompany, customerName);
         WebUI.setText(inputVatNumber, "10");
         WebUI.setText(inputPhone, "0965898635");
@@ -84,7 +84,7 @@ public class CustomersPage extends BasePage {
 
         // select Groups
         WebUI.clickElement(dropdownGroups);
-        WebUI.setTextAndKey(inputSearchGroups, "hatran", Keys.ENTER);
+        WebUI.setTextAndKey(inputSearchGroups, group, Keys.ENTER);
         WebUI.clickElement(dropdownGroups);
 
         //select Currency

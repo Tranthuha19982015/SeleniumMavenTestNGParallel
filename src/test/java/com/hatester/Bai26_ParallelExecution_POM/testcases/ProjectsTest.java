@@ -26,7 +26,7 @@ public class ProjectsTest extends BaseTest {
         customersPage.verifyNavigateToCustomerPage();
         String customerName = "Company HTest " + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         customersPage.clickButtonNewCustomer();
-        customersPage.fillDataForAddNewCustomer(customerName);
+        customersPage.fillDataForAddNewCustomer(customerName,"hatran");
         customersPage.clickSaveButton();
         customersPage.verifyAlertMessageSuccessDisplayed();
 

@@ -25,7 +25,7 @@ public class CustomersTest extends BaseTest {
 
         customersPage.verifyNavigateToCustomerPage();
         customersPage.clickButtonNewCustomer();
-        customersPage.fillDataForAddNewCustomer(customerName);
+        customersPage.fillDataForAddNewCustomer(customerName,"hatran");
         customersPage.clickSaveButton();
         customersPage.verifyNavigateToCustomerDetailPage();
         customersPage.verifyAddNewCustomerSuccess(customerName);
