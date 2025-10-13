@@ -32,7 +32,7 @@ public class DemoDataProvider extends BaseTest {
         loginPage.verifyLoginSuccess();
     }
 
-    @Test(dataProvider = "customerData", dataProviderClass = DataProviderFactory.class)
+    @Test(dataProvider = "AddNewCustomerData", dataProviderClass = DataProviderFactory.class)
     public void testAddNewCustomer(String customerName, String group, String currency, String language, String country) {
         LoginPage loginPage = new LoginPage();
         DashboardPage dashboardPage = loginPage.loginCRM();
@@ -40,10 +40,10 @@ public class DemoDataProvider extends BaseTest {
 
         customersPage.verifyNavigateToCustomerPage();
         customersPage.clickButtonNewCustomer();
-        customersPage.fillDataForAddNewCustomer(customerName,group);
+        customersPage.fillDataForAddNewCustomer(customerName, group, currency, language, country);
         customersPage.clickSaveButton();
         customersPage.verifyNavigateToCustomerDetailPage();
-        customersPage.verifyAddNewCustomerSuccess(customerName);
+        customersPage.verifyAddNewCustomerSuccess(customerName, group, currency, language, country);
         customersPage.clickMenuCustomers();
         customersPage.searchAndCheckCustomerInTable(customerName);
     }

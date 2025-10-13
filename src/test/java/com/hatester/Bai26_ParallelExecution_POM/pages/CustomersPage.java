@@ -76,7 +76,7 @@ public class CustomersPage extends BasePage {
         WebUI.clickElement(buttonNewCustomer);
     }
 
-    public void fillDataForAddNewCustomer(String customerName, String group) {
+    public void fillDataForAddNewCustomer(String customerName, String group, String currency, String language, String country) {
         WebUI.setText(inputCompany, customerName);
         WebUI.setText(inputVatNumber, "10");
         WebUI.setText(inputPhone, "0965898635");
@@ -89,11 +89,11 @@ public class CustomersPage extends BasePage {
 
         //select Currency
         WebUI.clickElement(dropdownCurrency);
-        WebUI.setTextAndKey(inputSearchCurrency, "USD", Keys.ENTER);
+        WebUI.setTextAndKey(inputSearchCurrency, currency, Keys.ENTER);
 
         //select Default Language
         WebUI.clickElement(dropdownDefaultLanguage);
-        WebUI.clickElement(optionValueDefaultLanguage("Vietnamese"));
+        WebUI.clickElement(optionValueDefaultLanguage(language));
 
         WebUI.setText(inputAddress, "Minh Khai, Bắc Từ Liêm");
         WebUI.setText(inputCity, "Hà Nội");
@@ -102,7 +102,7 @@ public class CustomersPage extends BasePage {
 
         //select Country
         WebUI.clickElement(dropdownCountry);
-        WebUI.setTextAndKey(inputSearchCountry, "Vietnam", Keys.ENTER);
+        WebUI.setTextAndKey(inputSearchCountry, country, Keys.ENTER);
     }
 
     public void clickSaveButton() {
@@ -121,7 +121,7 @@ public class CustomersPage extends BasePage {
         Assert.assertTrue(check, "The customer detail header page not display.");
     }
 
-    public void verifyAddNewCustomerSuccess(String customerName) {
+    public void verifyAddNewCustomerSuccess(String customerName, String group, String currency, String language, String country) {
         //navigation to customer detail
 //        verifyNavigateToCustomerDetailPage();
 
@@ -130,15 +130,15 @@ public class CustomersPage extends BasePage {
         Assert.assertEquals(WebUI.getElementAttribute(inputVatNumber, "value"), "10", "The VAT value not match.");
         Assert.assertEquals(WebUI.getElementAttribute(inputPhone, "value"), "0965898635", "The Phone number value not match.");
         Assert.assertEquals(WebUI.getElementAttribute(inputWebsite, "value"), "htest.com.vn", "The Website value not match.");
-        Assert.assertEquals(WebUI.getElementAttribute(dropdownGroups, "title"), "hatran", "The Groups value not match.");
-        Assert.assertEquals(WebUI.getElementAttribute(dropdownCurrency, "title"), "USD", "The Currency value not match.");
+        Assert.assertEquals(WebUI.getElementAttribute(dropdownGroups, "title"), group, "The Groups value not match.");
+        Assert.assertEquals(WebUI.getElementAttribute(dropdownCurrency, "title"), currency, "The Currency value not match.");
         WebUI.scrollToElementAtBottom(buttonSave);
-        Assert.assertEquals(WebUI.getElementAttribute(dropdownDefaultLanguage, "title"), "Vietnamese", "The Default Language value not match.");
+        Assert.assertEquals(WebUI.getElementAttribute(dropdownDefaultLanguage, "title"), language, "The Default Language value not match.");
         Assert.assertEquals(WebUI.getElementAttribute(inputAddress, "value"), "Minh Khai, Bắc Từ Liêm", "The Address value not match.");
         Assert.assertEquals(WebUI.getElementAttribute(inputCity, "value"), "Hà Nội", "The City value not match.");
         Assert.assertEquals(WebUI.getElementAttribute(inputState, "value"), "123545", "The State value not match.");
         Assert.assertEquals(WebUI.getElementAttribute(inputZipCode, "value"), "0001212", "The Zip Code value not match.");
-        Assert.assertEquals(WebUI.getElementAttribute(dropdownCountry, "title"), "Vietnam", "The Country value not match.");
+        Assert.assertEquals(WebUI.getElementAttribute(dropdownCountry, "title"), country, "The Country value not match.");
     }
 
     public void searchAndCheckCustomerInTable(String customerName) {

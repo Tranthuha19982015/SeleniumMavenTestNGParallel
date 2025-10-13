@@ -1,5 +1,7 @@
 package com.hatester.Bai29_DataProvider;
 
+import com.hatester.helpers.ExcelHelper;
+import com.hatester.helpers.SystemHelper;
 import org.testng.annotations.DataProvider;
 
 public class DataProviderFactory {
@@ -11,7 +13,7 @@ public class DataProviderFactory {
         };
     }
 
-    @DataProvider(name = "loginData2", parallel = true)
+    @DataProvider(name = "loginData2", parallel = false)
     public Object[][] getDataLogin2() {
         return new Object[][]{
                 {"admin@example.com", 123456, "Admin"},
@@ -20,11 +22,30 @@ public class DataProviderFactory {
         };
     }
 
-    @DataProvider(name = "customerData", parallel = true)
+    @DataProvider(name = "AddNewCustomerData", parallel = true)
     public Object[][] getCustomerData() {
         return new Object[][]{
-                {"Test Customer 0610A1","VIP","USD","Vietnamese","Vietnam"},
-                {"Test Customer 0610A2","Gold","EUR","English","Canada"}
+                {"New Customer 1010B7","GroupVIP","USD","Vietnamese","Vietnam"},
+                {"New Customer 1010B8","Gold","EUR","English","Canada"},
+                {"New Customer 1010B9","Silver","EUR","German","Germany"}
         };
+    }
+
+    @DataProvider(name = "DataLoginFromExcel", parallel = true)
+    public Object[][] dataLoginFromExcel() {
+        ExcelHelper excelHelper = new ExcelHelper();
+        Object[][] data = excelHelper.getExcelData(SystemHelper.getCurrentDirectory()
+                + "src/test/resources/testdata/dataCRM.xlsx", "Login_DataProvider");
+        System.out.println("Login Data from Excel: " + data);
+        return data;
+    }
+
+    @DataProvider(name = "DataLoginFromExcelHashtable", parallel = true)
+    public Object[][] dataLoginFromExcelHashtable() {
+        ExcelHelper excelHelper = new ExcelHelper();
+        Object[][] data = excelHelper.getDataHashTable(SystemHelper.getCurrentDirectory()
+                + "src/test/resources/testdata/dataCRM.xlsx", "Login_DataProvider",2,3);
+        System.out.println("Login Data from Excel (Hashtable): " + data);
+        return data;
     }
 }

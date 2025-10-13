@@ -1,6 +1,8 @@
 package com.hatester.helpers;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SystemHelper {
 
@@ -8,5 +10,9 @@ public class SystemHelper {
     public static String getCurrentDirectory() {
         String current = System.getProperty("user.dir") + File.separator;
         return current;
+    }
+
+    public static String getCurrentDatetime(){
+        return new SimpleDateFormat("_ddMMyyyy_HHmmss").format(new Date());
     }
 }

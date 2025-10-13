@@ -38,16 +38,6 @@ public class PropertiesHelper {
         } catch (IOException ioe) {
             return new Properties();
         }
-        finally {
-            if (file != null) {
-                try {
-                    file.close();
-                    file = null; //reset về null
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     //Hàm phụ (đọc 1 file được chỉ định)

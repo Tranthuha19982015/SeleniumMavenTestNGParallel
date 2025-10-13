@@ -25,10 +25,10 @@ public class CustomersTest extends BaseTest {
 
         customersPage.verifyNavigateToCustomerPage();
         customersPage.clickButtonNewCustomer();
-        customersPage.fillDataForAddNewCustomer(customerName,"hatran");
+        customersPage.fillDataForAddNewCustomer(customerName,"hatran","USD","Vietnamese","Vietnam");
         customersPage.clickSaveButton();
         customersPage.verifyNavigateToCustomerDetailPage();
-        customersPage.verifyAddNewCustomerSuccess(customerName);
+        customersPage.verifyAddNewCustomerSuccess(customerName,"hatran","USD","Vietnamese","Vietnam");
         customersPage.clickMenuCustomers();
         customersPage.searchAndCheckCustomerInTable(customerName);
     }
