@@ -33,7 +33,7 @@ public class DemoTakeScreenshot extends BaseTest {
         WebUI.clickElement(By.xpath("//a[@id='btn-login']"));
         WebUI.waitForPageLoaded();
 
-        CaptureHelper.takeScreenshot(method.getName() + SystemHelper.getCurrentDatetime());
+        CaptureHelper.takeScreenshot(method.getName());
         System.out.println("Screenshot success !!");
     }
 }

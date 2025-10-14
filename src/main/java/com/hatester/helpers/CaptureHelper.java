@@ -19,7 +19,7 @@ public class CaptureHelper {
         }
 
         try {
-            FileHandler.copy(source, new File(PropertiesHelper.getValue("SCREENSHOT_PATH") + "/" + screenshotName + ".png"));
+            FileHandler.copy(source, new File(PropertiesHelper.getValue("SCREENSHOT_PATH") + "/" + screenshotName + SystemHelper.getCurrentDatetime() + ".png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
