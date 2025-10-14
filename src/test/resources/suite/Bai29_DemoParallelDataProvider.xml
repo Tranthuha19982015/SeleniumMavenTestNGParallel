@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite Demo Parallel DataProvider" verbose="1">
+    <test name="Demo Parallel Testing DataProvider" parallel="methods" thread-count="2">
+        <classes>
+            <class name="com.hatester.Bai29_DataProvider.DemoDataProvider">
+                <methods>
+                    <include name="testAddNewCustomer"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

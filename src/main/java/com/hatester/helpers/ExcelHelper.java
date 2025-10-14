@@ -57,6 +57,7 @@ public class ExcelHelper {
         }
     }
 
+    //Đọc/ghi từng ô
     //lấy data theo từng ô trong file Excel
     public String getCellData(int columnIndex, int rowIndex) {
         try {
@@ -139,40 +140,22 @@ public class ExcelHelper {
 
     //set by column name
     public void setCellData(String text, String columnName, int rowIndex) {
-        try {
-            row = sheet.getRow(rowIndex);
-            if (row == null) {
-                row = sheet.createRow(rowIndex);
-            }
-            cell = row.getCell(columns.get(columnName));
-
-            if (cell == null) {
-                cell = row.createCell(columns.get(columnName));
-            }
-            cell.setCellValue(text);
-
-            XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
-            style.setFillPattern(FillPatternType.NO_FILL);
-            style.setAlignment(HorizontalAlignment.CENTER);
-            style.setVerticalAlignment(VerticalAlignment.CENTER);
-
-            cell.setCellStyle(style);
-
-            fileOut = new FileOutputStream(excelFilePath);
-            workbook.write(fileOut);
-            fileOut.flush();
-            fileOut.close();
-        } catch (Exception e) {
-            e.getMessage();
+        Integer columnIndex = columns.get(columnName);
+        if (columnIndex == null) {
+            throw new IllegalArgumentException("Column '" + columnName + "' not found in sheet.");
         }
+        setCellData(text, columnIndex, rowIndex);
     }
 
+
+    //Đọc toàn bộ sheet làm data cho test  =>  Đọc toàn bộ file (bỏ qua header) để dùng cho DataProvider
     public Object[][] getExcelData(String filePath, String sheetName) {
         Object[][] data = null;
         Workbook workbook = null;
         try {
             // load the file
             FileInputStream fis = new FileInputStream(filePath);
+
 
             // load the workbook
             workbook = new XSSFWorkbook(fis);
@@ -184,8 +167,9 @@ public class ExcelHelper {
             Row row = sh.getRow(0);
 
             //
-            int noOfRows = sh.getPhysicalNumberOfRows();
-            int noOfCols = row.getLastCellNum();
+            int noOfRows = sh.getPhysicalNumberOfRows(); //số lượng dòng có DL thực tế (tính cả header), có bỏ qua dòng trống - dòng không có DL ở ô nào)
+            int noOfCols = row.getLastCellNum(); //từ dòng lấy ra ô cuối cùng của dòng đó chính là cột cuối cùng
+                                                 // trả về chỉ số cột cuối cùng + 1 (vì nó đếm theo kiểu “số lượng cột” chứ không phải index).
 
             System.out.println(noOfRows + " - " + noOfCols);
 
@@ -222,7 +206,8 @@ public class ExcelHelper {
                             data[i - 1][j] = cell.getStringCellValue();
                             break;
                         default:
-                            data[i - 1][j] = cell.getStringCellValue(); break;
+                            data[i - 1][j] = cell.getStringCellValue();
+                            break;
                     }
                 }
             }
@@ -254,6 +239,7 @@ public class ExcelHelper {
         return sheet.getPhysicalNumberOfRows();
     }
 
+    //đọc Excel data với số dòng tùy ý
     public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
         System.out.println("Excel Path: " + excelPath);
         Object[][] data = null;

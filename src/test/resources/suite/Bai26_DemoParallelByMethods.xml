@@ -3,7 +3,7 @@
 <suite name="Suite Demo Parallel Testing By Methods" verbose="1">
     <test name="Demo Parallel Testing DataProvider" parallel="methods" thread-count="2">
         <classes>
-            <class name="com.hatester.Bai29_DataProvider.DemoDataProviderFromExcel"/>
+            <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.LoginTest"/>
 <!--            <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.TasksTest"/>-->
 <!--            <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.LeadsTest"/>-->
         </classes>

@@ -19,10 +19,10 @@ public class DemoDataProviderFromExcel extends BaseTest {
     }
 
     @Test(dataProvider = "DataLoginFromExcelHashtable", dataProviderClass = DataProviderFactory.class)
-    public void testLoginCRMFromExcelHashtable(Hashtable<String,String> data) {
+    public void testLoginCRMFromExcelHashtable(Hashtable<String,String> data) {  // đối tượng Hashtable để nhận data trong DataProvider
         System.out.println("Email: " + data.get("EMAIL") + " | Password: " + data.get("PASSWORD"));
         LoginPage loginPage = new LoginPage();
-        loginPage.loginCRM(data.get("EMAIL"), String.valueOf(data.get("PASSWORD")));
+        loginPage.loginCRM(data.get("EMAIL"), String.valueOf(data.get("PASSWORD"))); // điền tên cột trong Excel
         loginPage.verifyLoginSuccess();
     }
 }
