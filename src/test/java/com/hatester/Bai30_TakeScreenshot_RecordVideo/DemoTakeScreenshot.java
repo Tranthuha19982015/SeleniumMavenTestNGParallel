@@ -7,6 +7,8 @@ import com.hatester.helpers.SystemHelper;
 import com.hatester.keywords.WebUI;
 import org.openqa.selenium.*;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
@@ -25,7 +27,7 @@ public class DemoTakeScreenshot extends BaseTest {
         System.out.println("Screenshot success !!");
     }
 
-    @Test
+    @Test(alwaysRun = false)
     public void testScreenshot2(Method method) {
         WebUI.openURL("https://anhtester.com");
         Assert.assertEquals(DriverManager.getDriver().getTitle(), "Anh Tester Automation Testing");
@@ -35,5 +37,12 @@ public class DemoTakeScreenshot extends BaseTest {
 
         CaptureHelper.takeScreenshot(method.getName());
         System.out.println("Screenshot success !!");
+    }
+
+    @AfterMethod
+    public void testScreenshotFalure(ITestResult result) {
+        if(ITestResult.FAILURE== result.getStatus()){
+            CaptureHelper.takeScreenshot(result.getName());
+        }
     }
 }
