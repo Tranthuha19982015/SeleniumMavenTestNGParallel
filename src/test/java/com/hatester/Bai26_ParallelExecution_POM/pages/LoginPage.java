@@ -61,7 +61,7 @@ public class LoginPage extends BasePage {
     }
 
     public void verifyLoginSuccess() {
-        boolean check = WebUI.checkElementExist(menuDashboard);
+        boolean check = WebUI.checkElementExist(menuDashboard,10,500);
         Assert.assertTrue(check, "Login failed or Dashboard not displayed.");
     }
 

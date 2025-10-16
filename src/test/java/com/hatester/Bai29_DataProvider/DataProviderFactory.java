@@ -4,6 +4,8 @@ import com.hatester.helpers.ExcelHelper;
 import com.hatester.helpers.SystemHelper;
 import org.testng.annotations.DataProvider;
 
+import java.util.Arrays;
+
 public class DataProviderFactory {
     @DataProvider(name = "loginData1")
     public Object[][] getDataLogin1() {
@@ -44,8 +46,29 @@ public class DataProviderFactory {
     public Object[][] dataLoginFromExcelHashtable() {
         ExcelHelper excelHelper = new ExcelHelper();
         Object[][] data = excelHelper.getDataHashTable(SystemHelper.getCurrentDir()
-                + "src/test/resources/testdata/dataCRM.xlsx", "Login_DataProvider", 2, 3);
+                + "src/test/resources/testdata/dataCRM.xlsx", "Login_DataProvider", 1, 3);
         System.out.println("Login Data from Excel (Hashtable): " + data);
+        return data;
+    }
+
+    //Sử dụng DataProvider với các dòng cụ thể cố định (1,3)
+    @DataProvider(name = "DataLoginFromExcelSpecificRows", parallel = true)
+    public Object[][] dataLoginFromExcelSpecificRows() {
+        ExcelHelper excelHelper = new ExcelHelper();
+        int arrRow[] = new int[]{1,3}; //dòng cụ thể cần lấy
+        Object[][] data = excelHelper.getDataFromSpecificRows(SystemHelper.getCurrentDir()
+                + "src/test/resources/testdata/dataCRM.xlsx", "Login_DataProvider", arrRow);
+        System.out.println("Login Data from Excel Specific Rows: " + data);
+        return data;
+    }
+
+    @DataProvider(name = "DataLoginFromExcelSpecificHashtable", parallel = true)
+    public Object[][] dataLoginFromExcelSpecificHashtable() {
+        ExcelHelper excelHelper = new ExcelHelper();
+        int arrRow[] = new int[]{1, 3}; //dòng cụ thể cần lấy
+        Object[][] data = excelHelper.getDataHashTableFromSpecificRows(SystemHelper.getCurrentDir()
+                + "src/test/resources/testdata/dataCRM.xlsx", "Login_DataProvider", arrRow);
+        System.out.println("Login Data from Excel Specific Hashtable: " + data);
         return data;
     }
 }

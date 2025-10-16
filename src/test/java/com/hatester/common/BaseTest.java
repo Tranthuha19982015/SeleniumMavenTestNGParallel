@@ -64,7 +64,7 @@ public class BaseTest {
 
     @AfterMethod
     public void closeDriver() {
-        CaptureHelper.stopRecord();
+//        CaptureHelper.stopRecord();
 
         if (DriverManager.getDriver() != null) {
             DriverManager.quit();

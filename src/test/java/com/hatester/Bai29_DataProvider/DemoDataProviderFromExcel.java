@@ -25,4 +25,20 @@ public class DemoDataProviderFromExcel extends BaseTest {
         loginPage.loginCRM(data.get("EMAIL"), String.valueOf(data.get("PASSWORD"))); // điền tên cột trong Excel
         loginPage.verifyLoginSuccess();
     }
+
+    @Test(dataProvider = "DataLoginFromExcelSpecificRows", dataProviderClass = DataProviderFactory.class)
+    public void testLoginCRMFromExcelSpecificRows(String email, String password) {
+        System.out.println("Email: " + email + " | Password: " + password);
+        LoginPage loginPage = new LoginPage();
+        loginPage.loginCRM(email, String.valueOf(password));
+        loginPage.verifyLoginSuccess();
+    }
+
+    @Test(dataProvider = "DataLoginFromExcelSpecificHashtable", dataProviderClass = DataProviderFactory.class)
+    public void testLoginCRMFromExcelSpecificHashtable(Hashtable<String,String> data) {
+        System.out.println("Email: " + data.get("EMAIL") + " | Password: " + data.get("PASSWORD"));
+        LoginPage loginPage = new LoginPage();
+        loginPage.loginCRM(data.get("EMAIL"), String.valueOf(data.get("PASSWORD"))); // điền tên cột trong Excel
+        loginPage.verifyLoginSuccess();
+    }
 }
