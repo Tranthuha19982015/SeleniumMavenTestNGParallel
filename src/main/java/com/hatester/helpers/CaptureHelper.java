@@ -29,28 +29,28 @@ public class CaptureHelper extends ScreenRecorder {
         this.name = name;
     }
 
-    //Hàm này bắt buộc để ghi đè custom lại hàm trong thư viên viết sẵn
+    //Hàm này bắt buộc để ghi đè custom lại hàm trong thư viện viết sẵn
     @Override
     protected File createMovieFile(Format fileFormat) throws IOException {
 
         if (!movieFolder.exists()) {
-            movieFolder.mkdirs();
-        } else if (!movieFolder.isDirectory()) {
+            movieFolder.mkdirs();   //Nếu movieFolder chưa tồn tại -> mkdirs() (tạo thư mục)
+        } else if (!movieFolder.isDirectory()) {   //Nếu movieFolder không phải là thư mục -> ném IOException
             throw new IOException("\"" + movieFolder + "\" is not a directory.");
         }
         return new File(movieFolder, name + SystemHelper.getCurrentDatetime() + "."
-                + Registry.getInstance().getExtension(fileFormat));
+                + Registry.getInstance().getExtension(fileFormat));  //Tạo File mới
     }
 
     // Start record video
     public static void startRecord(String videoRecordName) {
         //Tạo thư mục để lưu file video vào
         File file = new File(SystemHelper.getCurrentDir() + PropertiesHelper.getValue("VIDEO_RECORD_PATH"));
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();   //lấy kích thước toàn màn hình
         int width = screenSize.width;
         int height = screenSize.height;
 
-        Rectangle captureSize = new Rectangle(0, 0, width, height);
+        Rectangle captureSize = new Rectangle(0, 0, width, height);   //quay toàn bộ màn hình
 
         GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
         try {
@@ -59,7 +59,7 @@ public class CaptureHelper extends ScreenRecorder {
                     ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE, CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
                     DepthKey, 24, FrameRateKey, Rational.valueOf(15), QualityKey, 1.0f, KeyFrameIntervalKey, 15 * 60),
                     new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, "black", FrameRateKey, Rational.valueOf(30)), null, file, videoRecordName);
-            screenRecorder.start();
+            screenRecorder.start();  //gọi screenRecorder.start() để bắt đầu quay
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (AWTException e) {
@@ -70,23 +70,33 @@ public class CaptureHelper extends ScreenRecorder {
     // Stop record video
     public static void stopRecord() {
         try {
-            screenRecorder.stop();
+            if (screenRecorder != null) {
+                screenRecorder.stop();
+                screenRecorder = null;
+                System.out.println("Video recording stopped successfully.");
+            } else {
+                System.out.println("screenRecorder is null — skipping stopRecord.");
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static void takeScreenshot(String screenshotName) {
+        //Tạo tham chiếu của TakeScreenshot
         TakesScreenshot ts = (TakesScreenshot) DriverManager.getDriver();
-        File source = ts.getScreenshotAs(OutputType.FILE);
+        File source = ts.getScreenshotAs(OutputType.FILE);  //chụp ảnh màn hình trang hiện tại (snapshot của browser)
 
-        File theDir = new File(PropertiesHelper.getValue("SCREENSHOT_PATH"));
+        //kiểm tra folder tồn tại không, nếu không thì tạo mới folder theo đường dẫn
+        File theDir = new File(PropertiesHelper.getValue("SCREENSHOT_PATH"));  //Lưu file vào SCREENSHOT_PATH
         if (!theDir.exists()) {
             theDir.mkdirs();
         }
 
+        //lưu file ảnh với tên cụ thể vào đường dẫn
         try {
             FileHandler.copy(source, new File(PropertiesHelper.getValue("SCREENSHOT_PATH") + "/" + screenshotName + ".png"));
+            //FileHandler.copy để copy file tạm sang vị trí đích
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

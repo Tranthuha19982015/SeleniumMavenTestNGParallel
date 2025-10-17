@@ -8,6 +8,7 @@ import com.hatester.common.BaseTest;
 import com.hatester.drivers.DriverManager;
 import com.hatester.helpers.CaptureHelper;
 import com.hatester.helpers.PropertiesHelper;
+import com.hatester.helpers.SystemHelper;
 import com.hatester.keywords.WebUI;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -41,7 +42,7 @@ public class DemoRecordVideo extends BaseTest {
         dashboardPage = loginPage.loginCRM();
         leadsPage = dashboardPage.clickMenuLeads();
 
-        String leadsName = "Leads Htest " + System.currentTimeMillis();
+        String leadsName = "Leads Htest " + SystemHelper.getCurrentDatetime();
         leadsPage.clickIconLeadsSummary();
         leadsPage.verifyNavigateToLeadPage();
         leadsPage.clickButtonNewLead();

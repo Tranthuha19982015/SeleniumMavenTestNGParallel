@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
@@ -63,9 +64,17 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void closeDriver() {
-//        CaptureHelper.stopRecord();
+    public void closeDriver(ITestResult result) {
+        //nếu fail thì chụp màn hình
+        if (ITestResult.FAILURE == result.getStatus())
+        {
+            CaptureHelper.takeScreenshot(result.getName());
+        }
 
+        //stop quay video
+            CaptureHelper.stopRecord();
+
+        //quit driver
         if (DriverManager.getDriver() != null) {
             DriverManager.quit();
         }

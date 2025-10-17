@@ -38,11 +38,4 @@ public class DemoTakeScreenshot extends BaseTest {
         CaptureHelper.takeScreenshot(method.getName());
         System.out.println("Screenshot success !!");
     }
-
-    @AfterMethod
-    public void testScreenshotFalure(ITestResult result) {
-        if(ITestResult.FAILURE== result.getStatus()){
-            CaptureHelper.takeScreenshot(result.getName());
-        }
-    }
 }
