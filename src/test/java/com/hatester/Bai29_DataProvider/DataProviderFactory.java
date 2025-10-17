@@ -51,7 +51,7 @@ public class DataProviderFactory {
         return data;
     }
 
-    //Sử dụng DataProvider với các dòng cụ thể cố định (1,3)
+    //Sử dụng DataProvider với các dòng cụ thể cố định (1,3) - khiến code bị chậm hơn do nhiều for hơn
     @DataProvider(name = "DataLoginFromExcelSpecificRows", parallel = true)
     public Object[][] dataLoginFromExcelSpecificRows() {
         ExcelHelper excelHelper = new ExcelHelper();
