@@ -3,6 +3,8 @@ package com.hatester.common;
 import com.hatester.drivers.DriverManager;
 import com.hatester.helpers.CaptureHelper;
 import com.hatester.helpers.PropertiesHelper;
+import com.hatester.helpers.SystemHelper;
+import com.hatester.listeners.TestListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,6 +14,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
+//@Listeners(TestListener.class)
 public class BaseTest {
     public SoftAssert softAssert;
 
@@ -65,15 +68,6 @@ public class BaseTest {
 
     @AfterMethod
     public void closeDriver(ITestResult result) {
-        //nếu fail thì chụp màn hình
-        if (ITestResult.FAILURE == result.getStatus())
-        {
-            CaptureHelper.takeScreenshot(result.getName());
-        }
-
-        //stop quay video
-            CaptureHelper.stopRecord();
-
         //quit driver
         if (DriverManager.getDriver() != null) {
             DriverManager.quit();

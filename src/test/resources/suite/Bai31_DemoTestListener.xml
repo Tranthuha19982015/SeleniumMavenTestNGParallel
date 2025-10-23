@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite Demo TestListener" verbose="1">
+
+    <listeners>
+        <listener class-name="com.hatester.listeners.TestListener"/>
+    </listeners>
+
+    <test name="Demo TestListener">
+        <classes>
+            <class name="com.hatester.Bai31_ITestListener.testcases.LoginTest"/>
+            <class name="com.hatester.Bai31_ITestListener.testcases.DashboardTest"/>
+<!--            <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.TasksTest"/>-->
+<!--            <class name="com.hatester.Bai26_ParallelExecution_POM.testcases.LeadsTest"/>-->
+        </classes>
+    </test>
+</suite>
