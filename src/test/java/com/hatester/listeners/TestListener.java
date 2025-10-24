@@ -23,10 +23,10 @@ public class TestListener implements ITestListener {
     @Override
     public void onFinish(ITestContext result) {
         System.out.println("Kết thúc bộ test: " + result.getEndDate());
-        System.out.println("Tong so TCs: " + count_total);
-        System.out.println("Tong so TCs pass: " + count_passed);
-        System.out.println("Tong so TCs fail: " + count_failed);
-        System.out.println("Tong so TCs skip: " + count_skipped);
+        System.out.println("Total testcase: " + count_total);
+        System.out.println("Total testcase pass: " + count_passed);
+        System.out.println("Total testcase fail: " + count_failed);
+        System.out.println("Total testcase skip: " + count_skipped);
         //Generate report
         //Send email
     }
