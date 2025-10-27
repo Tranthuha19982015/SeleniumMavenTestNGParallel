@@ -1,0 +1,52 @@
+[INFO] 27-10-2025 20:03:52 [main] LogUtils - Starting test: testLoginSuccess
+[INFO] 27-10-2025 20:03:53 [main] LogUtils - Navigate to: https://crm.anhtester.com/admin/authentication
+[INFO] 27-10-2025 20:03:53 [main] LogUtils - Entered email: admin@example.com
+[INFO] 27-10-2025 20:03:53 [main] LogUtils - Entered password: 123456
+[INFO] 27-10-2025 20:03:53 [main] LogUtils - Clicked on Login button.
+[INFO] 27-10-2025 20:17:12 [main] LogUtils - Starting test: testLoginSuccess
+[INFO] 27-10-2025 20:17:12 [main] LogUtils - Open URL: https://crm.anhtester.com/admin/authentication
+[INFO] 27-10-2025 20:17:13 [main] LogUtils - Set text admin@example.com on element By.xpath: //input[@id='email']
+[INFO] 27-10-2025 20:17:13 [main] LogUtils - Set text 123456 on element By.xpath: //input[@id='password']
+[INFO] 27-10-2025 20:17:13 [main] LogUtils - Click on element By.xpath: //button[normalize-space()='Login']
+[INFO] 27-10-2025 20:17:15 [main] LogUtils - Tìm thấy phần tử ở lần thử thứ 1
+[INFO] 27-10-2025 20:17:17 [main] LogUtils - Open URL: https://crm.anhtester.com/admin/authentication
+[INFO] 27-10-2025 20:17:17 [main] LogUtils - Set text 12admin@example.com on element By.xpath: //input[@id='email']
+[INFO] 27-10-2025 20:17:17 [main] LogUtils - Set text 123456 on element By.xpath: //input[@id='password']
+[INFO] 27-10-2025 20:17:18 [main] LogUtils - Click on element By.xpath: //button[normalize-space()='Login']
+[INFO] 27-10-2025 20:17:18 [main] LogUtils - checkElementExist: true --- By.xpath: //div[@id='alerts']/div[contains(text(),'Invalid email or password')]
+[INFO] 27-10-2025 20:17:20 [main] LogUtils - Open URL: https://crm.anhtester.com/admin/authentication
+[INFO] 27-10-2025 20:17:20 [main] LogUtils - Set text admin@example.com on element By.xpath: //input[@id='email']
+[INFO] 27-10-2025 20:17:20 [main] LogUtils - Set text 12345678 on element By.xpath: //input[@id='password']
+[INFO] 27-10-2025 20:17:21 [main] LogUtils - Click on element By.xpath: //button[normalize-space()='Login']
+[INFO] 27-10-2025 20:17:21 [main] LogUtils - checkElementExist: true --- By.xpath: //div[@id='alerts']/div[contains(text(),'Invalid email or password')]
+[INFO] 27-10-2025 20:17:22 [main] LogUtils - Open URL: https://crm.anhtester.com/admin/authentication
+[INFO] 27-10-2025 20:17:22 [main] LogUtils - Set text  on element By.xpath: //input[@id='email']
+[INFO] 27-10-2025 20:17:22 [main] LogUtils - Set text 123456 on element By.xpath: //input[@id='password']
+[INFO] 27-10-2025 20:17:22 [main] LogUtils - Click on element By.xpath: //button[normalize-space()='Login']
+[INFO] 27-10-2025 20:17:23 [main] LogUtils - checkElementExist: true --- By.xpath: //div[normalize-space()='The Email Address field is required.']
+[INFO] 27-10-2025 20:32:39 [main] LogUtils - Launching Chrome browser...
+[INFO] 27-10-2025 20:32:40 [main] LogUtils - Starting test: testLoginSuccess
+[INFO] 27-10-2025 20:32:40 [main] LogUtils - Open URL: https://crm.anhtester.com/admin/authentication
+[INFO] 27-10-2025 20:32:40 [main] LogUtils - Set text admin@example.com on element By.xpath: //input[@id='email']
+[INFO] 27-10-2025 20:32:41 [main] LogUtils - Set text 123456 on element By.xpath: //input[@id='password']
+[INFO] 27-10-2025 20:32:41 [main] LogUtils - Click on element By.xpath: //button[normalize-space()='Login']
+[INFO] 27-10-2025 20:32:43 [main] LogUtils - Tìm thấy phần tử ở lần thử thứ 1
+[INFO] 27-10-2025 20:32:43 [main] LogUtils - Launching Chrome browser...
+[INFO] 27-10-2025 20:32:45 [main] LogUtils - Open URL: https://crm.anhtester.com/admin/authentication
+[INFO] 27-10-2025 20:32:45 [main] LogUtils - Set text 12admin@example.com on element By.xpath: //input[@id='email']
+[INFO] 27-10-2025 20:32:45 [main] LogUtils - Set text 123456 on element By.xpath: //input[@id='password']
+[INFO] 27-10-2025 20:32:45 [main] LogUtils - Click on element By.xpath: //button[normalize-space()='Login']
+[INFO] 27-10-2025 20:32:47 [main] LogUtils - checkElementExist: true --- By.xpath: //div[@id='alerts']/div[contains(text(),'Invalid email or password')]
+[INFO] 27-10-2025 20:32:47 [main] LogUtils - Launching Chrome browser...
+[INFO] 27-10-2025 20:32:48 [main] LogUtils - Open URL: https://crm.anhtester.com/admin/authentication
+[INFO] 27-10-2025 20:32:48 [main] LogUtils - Set text admin@example.com on element By.xpath: //input[@id='email']
+[INFO] 27-10-2025 20:32:48 [main] LogUtils - Set text 12345678 on element By.xpath: //input[@id='password']
+[INFO] 27-10-2025 20:32:49 [main] LogUtils - Click on element By.xpath: //button[normalize-space()='Login']
+[INFO] 27-10-2025 20:32:49 [main] LogUtils - checkElementExist: true --- By.xpath: //div[@id='alerts']/div[contains(text(),'Invalid email or password')]
+[INFO] 27-10-2025 20:32:49 [main] LogUtils - Launching Chrome browser...
+[INFO] 27-10-2025 20:32:50 [main] LogUtils - Open URL: https://crm.anhtester.com/admin/authentication
+[INFO] 27-10-2025 20:32:51 [main] LogUtils - Set text  on element By.xpath: //input[@id='email']
+[INFO] 27-10-2025 20:32:51 [main] LogUtils - Set text 123456 on element By.xpath: //input[@id='password']
+[INFO] 27-10-2025 20:32:51 [main] LogUtils - Click on element By.xpath: //button[normalize-space()='Login']
+[INFO] 27-10-2025 20:32:51 [main] LogUtils - checkElementExist: true --- By.xpath: //div[normalize-space()='The Email Address field is required.']
+[INFO] 27-10-2025 20:32:51 [main] LogUtils - Launching Chrome browser...
