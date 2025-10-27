@@ -88,7 +88,7 @@ public class CaptureHelper extends ScreenRecorder {
         File source = ts.getScreenshotAs(OutputType.FILE);  //chụp ảnh màn hình trang hiện tại (snapshot của browser)
 
         //kiểm tra folder tồn tại không, nếu không thì tạo mới folder theo đường dẫn
-        File theDir = new File(PropertiesHelper.getValue("SCREENSHOT_PATH"));  //Lưu file vào SCREENSHOT_PATH
+        File theDir = new File(PropertiesHelper.getValue("SCREENSHOT_PATH"));  //Lưu file vào exports/screenshots
         if (!theDir.exists()) {
             theDir.mkdirs();
         }
