@@ -8,14 +8,14 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 public class TestListener implements ITestListener {
-    static int count_total = 0;
-    static int count_passed = 0;
-    static int count_failed = 0;
-    static int count_skipped = 0;
+    private static int count_total = 0;
+    private static int count_passed = 0;
+    private static int count_failed = 0;
+    private static int count_skipped = 0;
 
     @Override
     public void onStart(ITestContext result) {
-        LogUtils.info("Setup môi trường onStart: " + result.getStartDate());
+        LogUtils.info("Setup môi trường onStart: " + result.getStartDate());  //thời gian bắt đầu
         //Initialize report
         //Connect to database
         //Call API get Token
@@ -23,7 +23,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onFinish(ITestContext result) {
-        LogUtils.info("Kết thúc bộ test: " + result.getEndDate());
+        LogUtils.info("Kết thúc bộ test: " + result.getEndDate()); //thời gian kết thúc
         LogUtils.info("Total testcase: " + count_total);
         LogUtils.info("Total testcase pass: " + count_passed);
         LogUtils.info("Total testcase fail: " + count_failed);
@@ -34,10 +34,10 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        LogUtils.info("Bắt đầu chạy test case: " + result.getName());
+        LogUtils.info("Test Started: " + result.getName());
         count_total++;
         //Write log to file
-        CaptureHelper.startRecord(result.getName()+ SystemHelper.getCurrentDatetime());
+        CaptureHelper.startRecord(result.getName());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class TestListener implements ITestListener {
         LogUtils.info("==> Status: " + result.getStatus());
         count_failed++;
         LogUtils.error("==> Reason: " + result.getThrowable()); //Lấy lý do lỗi
-        CaptureHelper.takeScreenshot(result.getName() +SystemHelper.getCurrentDatetime()); //Lấy tên TCs làm tên hình ảnh
+        CaptureHelper.takeScreenshot(result.getName() + "_" + SystemHelper.getDateTimeNowFormat()); //Lấy tên TCs làm tên hình ảnh
         //Create ticket on Jira
         //Write log to file
         //Write status to report
