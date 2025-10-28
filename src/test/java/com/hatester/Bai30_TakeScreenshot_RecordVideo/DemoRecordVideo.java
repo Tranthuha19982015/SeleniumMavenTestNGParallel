@@ -27,6 +27,7 @@ public class DemoRecordVideo extends BaseTest {
 
         loginPage.loginCRM("admin@example.com", "123456");
         loginPage.verifyLoginSuccess();
+        CaptureHelper.stopRecord();
     }
 
     @Test

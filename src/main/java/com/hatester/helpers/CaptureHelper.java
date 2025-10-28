@@ -1,6 +1,7 @@
 package com.hatester.helpers;
 
 import com.hatester.drivers.DriverManager;
+import com.hatester.utils.LogUtils;
 import org.monte.media.Format;
 import org.monte.media.FormatKeys;
 import org.monte.media.Registry;
@@ -32,13 +33,12 @@ public class CaptureHelper extends ScreenRecorder {
     //Hàm này bắt buộc để ghi đè custom lại hàm trong thư viện viết sẵn
     @Override
     protected File createMovieFile(Format fileFormat) throws IOException {
-
         if (!movieFolder.exists()) {
             movieFolder.mkdirs();   //Nếu movieFolder chưa tồn tại -> mkdirs() (tạo thư mục)
         } else if (!movieFolder.isDirectory()) {   //Nếu movieFolder không phải là thư mục -> ném IOException
             throw new IOException("\"" + movieFolder + "\" is not a directory.");
         }
-        return new File(movieFolder, name + SystemHelper.getCurrentDatetime() + "."
+        return new File(movieFolder, name + "_" + SystemHelper.getDateTimeNowFormat() + "."
                 + Registry.getInstance().getExtension(fileFormat));  //Tạo File mới
     }
 
@@ -46,19 +46,23 @@ public class CaptureHelper extends ScreenRecorder {
     public static void startRecord(String videoRecordName) {
         //Tạo thư mục để lưu file video vào
         File file = new File(SystemHelper.getCurrentDir() + PropertiesHelper.getValue("VIDEO_RECORD_PATH"));
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();   //lấy kích thước toàn màn hình
+        //lấy kích thước màn hình để làm kích cỡ của khung video
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
 
         Rectangle captureSize = new Rectangle(0, 0, width, height);   //quay toàn bộ màn hình
 
+        //Tùy chỉnh những thông số trong video
         GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
         try {
             screenRecorder = new CaptureHelper(gc, captureSize, new Format(MediaTypeKey, FormatKeys.MediaType.FILE,
                     MimeTypeKey, MIME_AVI), new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey,
                     ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE, CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
                     DepthKey, 24, FrameRateKey, Rational.valueOf(15), QualityKey, 1.0f, KeyFrameIntervalKey, 15 * 60),
-                    new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, "black", FrameRateKey, Rational.valueOf(30)), null, file, videoRecordName);
+                    new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, "black", FrameRateKey, Rational.valueOf(30)),
+                    null, file, videoRecordName);
+
             screenRecorder.start();  //gọi screenRecorder.start() để bắt đầu quay
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -73,9 +77,9 @@ public class CaptureHelper extends ScreenRecorder {
             if (screenRecorder != null) {
                 screenRecorder.stop();
                 screenRecorder = null;
-                System.out.println("Video recording stopped successfully.");
+                LogUtils.info("Video recording stopped successfully.");
             } else {
-                System.out.println("screenRecorder is null — skipping stopRecord.");
+                LogUtils.info("screenRecorder is null — skipping stopRecord.");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
