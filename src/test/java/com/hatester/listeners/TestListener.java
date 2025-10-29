@@ -43,7 +43,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult result) {
         LogUtils.info("Test case " + result.getName() + " is passed.");
-        LogUtils.info("==> Status: " + result.getStatus());
+//        LogUtils.info("==> Status: " + result.getStatus());
         count_passed++;
         //Write log to file
         //Write status to report
@@ -53,7 +53,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         LogUtils.error("Test case " + result.getName() + " is failed.");
-        LogUtils.info("==> Status: " + result.getStatus());
+//        LogUtils.info("==> Status: " + result.getStatus());
         count_failed++;
         LogUtils.error("==> Reason: " + result.getThrowable()); //Lấy lý do lỗi
         CaptureHelper.takeScreenshot(result.getName() + "_" + SystemHelper.getDateTimeNowFormat()); //Lấy tên TCs làm tên hình ảnh
@@ -66,7 +66,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestSkipped(ITestResult result) {
         LogUtils.warn("Test case " + result.getName() + " is skipped.");
-        LogUtils.info("==> Status: " + result.getStatus());
+//        LogUtils.info("==> Status: " + result.getStatus());
         count_skipped++;
         //Write log to file
         //Write status to report

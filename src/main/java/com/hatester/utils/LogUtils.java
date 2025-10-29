@@ -9,6 +9,7 @@ public class LogUtils {
     private static final Logger logger = LogManager.getLogger(LogUtils.class);
 
     //Info Level Logs
+    // in những thông tin thông thường cho người dùng. VD: Điền url, điền email-pass, click button login,...
     public static void info(String message) {
         logger.info(message);
     }
@@ -18,6 +19,7 @@ public class LogUtils {
     }
 
     //Warn Level Logs
+    //những gì để cảnh báo. VD cảnh báo chrome không tương thích với phiên bản của selenium,...
     public static void warn(String message) {
         logger.warn(message);
     }
@@ -27,6 +29,7 @@ public class LogUtils {
     }
 
     //Error Level Logs
+    //những gì khi xảy ra lỗi thì xuất hiện ra màn hình (thông tin nhưng cung cấp lỗi). VD click element không được,...
     public static void error(String message) {
         logger.error(message);
     }
@@ -35,7 +38,7 @@ public class LogUtils {
         logger.error(object);
     }
 
-    //Fatal Level Logs
+    //Fatal Level Logs (level cao nhất)
     public static void fatal(String message) {
         logger.fatal(message);
     }

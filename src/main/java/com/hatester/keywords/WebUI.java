@@ -23,7 +23,7 @@ public class WebUI {
     private static int PAGE_LOAD_TIMEOUT = Integer.parseInt(PropertiesHelper.getValue("PAGE_LOAD_TIMEOUT"));
 
     public static void logConsole(Object message) {
-        System.out.println(message);
+        LogUtils.info(message);
     }
 
     public static WebElement getWebElement(By by) {
@@ -38,7 +38,6 @@ public class WebUI {
     public static void highlightElement(By by) {
         // Highlight the element using JavaScript
         String script = "arguments[0].style.border='3px solid red';";
-
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript(script, getWebElement(by));
     }
@@ -158,7 +157,7 @@ public class WebUI {
 
         //Wait Javascript until it is Ready!
         if (!jsReady) {
-            //System.out.println("Javascript is NOT Ready.");
+            //LogUtils.info("Javascript is NOT Ready.");
             //Wait for Javascript to load
             try {
                 wait.until(jsLoad);
@@ -194,7 +193,7 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
-            System.out.println("Switched to iframe: " + by);
+            LogUtils.info("Switched to iframe: " + by);
         } catch (Throwable error) {
             LogUtils.error("Timeout waiting for the iFrame Visible " + by.toString());
             Assert.fail("Timeout waiting for the iFrame Visible " + by.toString());

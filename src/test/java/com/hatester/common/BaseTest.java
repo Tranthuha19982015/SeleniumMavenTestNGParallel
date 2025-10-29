@@ -62,6 +62,7 @@ public class BaseTest {
 
         DriverManager.setDriver(driver);
         if (PropertiesHelper.getValue("HEADLESS").equalsIgnoreCase("false")) {
+            LogUtils.info("Headless: " + PropertiesHelper.getValue("HEADLESS"));
             DriverManager.getDriver().manage().window().maximize();
         }
         softAssert = new SoftAssert();
