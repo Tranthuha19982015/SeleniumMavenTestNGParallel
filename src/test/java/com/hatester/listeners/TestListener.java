@@ -1,7 +1,11 @@
 package com.hatester.listeners;
 
+import com.aventstack.extentreports.Status;
 import com.hatester.helpers.CaptureHelper;
+import com.hatester.helpers.PropertiesHelper;
 import com.hatester.helpers.SystemHelper;
+import com.hatester.reports.ExtentReportManager;
+import com.hatester.reports.ExtentTestManager;
 import com.hatester.utils.LogUtils;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -12,6 +16,14 @@ public class TestListener implements ITestListener {
     private static int count_passed = 0;
     private static int count_failed = 0;
     private static int count_skipped = 0;
+
+    public String getTestName(ITestResult result) {
+        return result.getTestName() != null ? result.getTestName() : result.getMethod().getConstructorOrMethod().getName();
+    }
+
+    public String getTestDescription(ITestResult result) {
+        return result.getMethod().getDescription() != null ? result.getMethod().getDescription() : getTestName(result);
+    }
 
     @Override
     public void onStart(ITestContext result) {
@@ -29,6 +41,8 @@ public class TestListener implements ITestListener {
         LogUtils.info("Total testcase fail: " + count_failed);
         LogUtils.info("Total testcase skip: " + count_skipped);
         //Generate report
+        //Kết thúc và thực thi Extents Report
+        ExtentReportManager.getExtentReports().flush();
         //Send email
     }
 
@@ -38,6 +52,8 @@ public class TestListener implements ITestListener {
         count_total++;
         //Write log to file
         CaptureHelper.startRecord(result.getName());
+        //Bắt đầu ghi 1 TCs mới vào Extent Report
+        ExtentTestManager.saveToReport(getTestName(result), getTestDescription(result));
     }
 
     @Override
@@ -47,6 +63,10 @@ public class TestListener implements ITestListener {
         count_passed++;
         //Write log to file
         //Write status to report
+
+        //Extent Report
+        ExtentTestManager.logMessage(Status.PASS, result.getName() + " is passed.");
+
         CaptureHelper.stopRecord();
     }
 
@@ -60,6 +80,12 @@ public class TestListener implements ITestListener {
         //Create ticket on Jira
         //Write log to file
         //Write status to report
+
+        //Extent Report
+        ExtentTestManager.addScreenshot(result.getName());
+        ExtentTestManager.logMessage(Status.FAIL, result.getThrowable().toString());
+        ExtentTestManager.logMessage(Status.FAIL, result.getName() + " is failed.");
+
         CaptureHelper.stopRecord();
     }
 
@@ -70,6 +96,10 @@ public class TestListener implements ITestListener {
         count_skipped++;
         //Write log to file
         //Write status to report
+
+        //Extent Report
+        ExtentTestManager.logMessage(Status.SKIP, result.getThrowable().toString());
+
         CaptureHelper.stopRecord();
     }
 }

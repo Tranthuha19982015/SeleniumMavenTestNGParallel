@@ -1,7 +1,9 @@
 package com.hatester.keywords;
 
+import com.aventstack.extentreports.Status;
 import com.hatester.drivers.DriverManager;
 import com.hatester.helpers.PropertiesHelper;
+import com.hatester.reports.ExtentTestManager;
 import com.hatester.utils.LogUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.bidi.log.Log;
@@ -249,41 +251,48 @@ public class WebUI {
         DriverManager.getDriver().get(url);
         sleep(STEP_TIME);
         LogUtils.info("Open URL: " + url);
+        ExtentTestManager.logMessage(Status.PASS, "Open URL: " + url);
     }
 
     public static void clickElement(By by) {
         sleep(STEP_TIME);
         waitForElementToBeClickable(by).click();
         LogUtils.info("Click on element " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Click on element " + by);
     }
 
     public static void clickElement(By by, int seconds) {
         sleep(STEP_TIME);
         waitForElementToBeClickable(by, seconds).click();
         LogUtils.info("Click on element " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Click on element " + by);
     }
 
     public static void clearElementText(By by) {
         sleep(STEP_TIME);
         waitForElementVisible(by).clear();
         LogUtils.info("Clear text of element: " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Clear text on element " + by);
     }
 
     public static void setText(By by, String text) {
         sleep(STEP_TIME);
         waitForElementVisible(by).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " on element " + by);
     }
 
     public static void setText(By by, String text, int seconds) {
         sleep(STEP_TIME);
         waitForElementVisible(by, seconds).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " on element " + by);
     }
 
     public static void setKey(By by, Keys key) {
         waitForElementVisible(by).sendKeys(key);
         LogUtils.info("Set key on element: " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Set key on element " + by);
     }
 
     public static String getElementText(By by) {
@@ -292,6 +301,8 @@ public class WebUI {
         LogUtils.info("Get text of element " + by);
         String text = getWebElement(by).getText();
         LogUtils.info("==> TEXT: " + text);
+        ExtentTestManager.logMessage(Status.PASS, "Get text of element " + by);
+        ExtentTestManager.logMessage(Status.INFO, "==> Text: " + getWebElement(by).getText());
         return text;
     }
 
@@ -300,6 +311,8 @@ public class WebUI {
         LogUtils.info("Get attribute of element " + by);
         String value = getWebElement(by).getAttribute(attributeName);
         LogUtils.info("==> Attribute value: " + value);
+        ExtentTestManager.logMessage(Status.PASS, "Get attribute value of element " + by);
+        ExtentTestManager.logMessage(Status.INFO, "==> Attribute value: " + getWebElement(by).getAttribute(attributeName));
         return value;
     }
 
@@ -308,13 +321,16 @@ public class WebUI {
         LogUtils.info("Get CSS value " + cssPropertyName + " of element " + by);
         String value = getWebElement(by).getCssValue(cssPropertyName);
         LogUtils.info("==> CSS value: " + value);
+        ExtentTestManager.logMessage(Status.PASS, "Get CSS value of element " + by);
+        ExtentTestManager.logMessage(Status.INFO, "==> CSS value: " + getWebElement(by).getCssValue(cssPropertyName));
         return value;
     }
 
-    public static void setTextAndKey(By by, String value, Keys key) {
+    public static void setTextAndKey(By by, String text, Keys key) {
         waitForPageLoaded();
-        getWebElement(by).sendKeys(value, key);
-        LogUtils.info("Set text and key: " + value + " on element " + by);
+        getWebElement(by).sendKeys(text, key);
+        LogUtils.info("Set text and key: " + text + " on element " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " and key on element " + by);
     }
 
     //cuộn/di chuyển tới 1 phần tử

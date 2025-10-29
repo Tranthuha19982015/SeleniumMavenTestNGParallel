@@ -13,7 +13,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 1)
     public void testLoginSuccess() {
         loginPage = new LoginPage(); //Khởi tạo đối tượng LoginPage với driver lấy từ BaseTest
-        loginPage.loginCRM("admin@example.com", "123456");
+        loginPage.loginCRM("admin@example.com", "1234567");
         loginPage.verifyLoginSuccess();
     }
 
