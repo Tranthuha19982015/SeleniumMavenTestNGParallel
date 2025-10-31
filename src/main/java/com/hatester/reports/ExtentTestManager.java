@@ -25,6 +25,7 @@ public class ExtentTestManager {
         return test;
     }
 
+    //đính kèm hình ảnh vào report
     public static void addScreenshot(String message) {
         String base64Image = "data:image/png;base64,"
                 + ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BASE64);
@@ -41,6 +42,7 @@ public class ExtentTestManager {
                 MediaEntityBuilder.createScreenCaptureFromBase64String(base64Image).build());
     }
 
+    //hàm để ghi log của report để ghi mô tả/Mô tả trong từng TCs
     public static void logMessage(String message) {
         getTest().log(Status.INFO, message);
     }
