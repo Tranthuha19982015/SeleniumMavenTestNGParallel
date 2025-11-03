@@ -4,6 +4,7 @@ import com.aventstack.extentreports.Status;
 import com.hatester.helpers.CaptureHelper;
 import com.hatester.helpers.PropertiesHelper;
 import com.hatester.helpers.SystemHelper;
+import com.hatester.reports.AllureManager;
 import com.hatester.reports.ExtentReportManager;
 import com.hatester.reports.ExtentTestManager;
 import com.hatester.utils.LogUtils;
@@ -85,6 +86,10 @@ public class TestListener implements ITestListener {
         ExtentTestManager.addScreenshot(result.getName());
         ExtentTestManager.logMessage(Status.FAIL, result.getThrowable().toString());
         ExtentTestManager.logMessage(Status.FAIL, result.getName() + " is failed.");
+
+        //Allure Report
+        AllureManager.saveTextLog(result.getName() + " is failed.");
+        AllureManager.saveScreenshotPNG();
 
         CaptureHelper.stopRecord();
     }
