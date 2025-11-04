@@ -12,8 +12,10 @@ target/
 *.iml
 *.ipr
 .idea/
-.exports/
-.reports/
+.exports/videos/
+.exports/screenshots/
+.exports/logs/
+.reports/extendreport/
 .target/allure-results/
 
 ### Eclipse ###
