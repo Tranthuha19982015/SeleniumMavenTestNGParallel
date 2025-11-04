@@ -3,8 +3,11 @@ package com.hatester.keywords;
 import com.aventstack.extentreports.Status;
 import com.hatester.drivers.DriverManager;
 import com.hatester.helpers.PropertiesHelper;
+import com.hatester.helpers.SystemHelper;
+import com.hatester.reports.AllureManager;
 import com.hatester.reports.ExtentTestManager;
 import com.hatester.utils.LogUtils;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.bidi.log.Log;
 import org.openqa.selenium.interactions.Actions;
@@ -247,90 +250,128 @@ public class WebUI {
         return false;
     }
 
+    @Step("Open URL: {0}")
     public static void openURL(String url) {
         DriverManager.getDriver().get(url);
         sleep(STEP_TIME);
         LogUtils.info("Open URL: " + url);
         ExtentTestManager.logMessage(Status.PASS, "Open URL: " + url);
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("openURL_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
+    @Step("Click on element: {0}")
     public static void clickElement(By by) {
         sleep(STEP_TIME);
         waitForElementToBeClickable(by).click();
         LogUtils.info("Click on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Click on element " + by);
+        ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
     }
 
+    @Step("Click on element: {0} with timeout: {1} seconds")
     public static void clickElement(By by, int seconds) {
         sleep(STEP_TIME);
         waitForElementToBeClickable(by, seconds).click();
-        LogUtils.info("Click on element " + by);
-        ExtentTestManager.logMessage(Status.PASS, "Click on element " + by);
+        LogUtils.info("Click on element " + by + "with: " + seconds + "(s)");
+        ExtentTestManager.logMessage(Status.PASS, "Click on element " + by + "with: " + seconds + "(s)");
+        ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
     }
 
+    @Step("Clear text of element: {0}")
     public static void clearElementText(By by) {
         sleep(STEP_TIME);
         waitForElementVisible(by).clear();
         LogUtils.info("Clear text of element: " + by);
         ExtentTestManager.logMessage(Status.PASS, "Clear text on element " + by);
+        ExtentTestManager.addScreenshot("clearElementText_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
     }
 
+    @Step("Set text: {1} on element: {0}")
     public static void setText(By by, String text) {
         sleep(STEP_TIME);
         waitForElementVisible(by).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " on element " + by);
+        ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
     }
 
+    @Step("Set text: {1} on element: {0} with timeout: {2} seconds")
     public static void setText(By by, String text, int seconds) {
         sleep(STEP_TIME);
         waitForElementVisible(by, seconds).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " on element " + by);
+        ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
     }
 
+    @Step("Set key on element: {0}")
     public static void setKey(By by, Keys key) {
         waitForElementVisible(by).sendKeys(key);
         LogUtils.info("Set key on element: " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set key on element " + by);
+        ExtentTestManager.addScreenshot("setKey_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
     }
 
+    @Step("Get text of element: {0}")
     public static String getElementText(By by) {
         waitForElementVisible(by);
         sleep(STEP_TIME);
-        LogUtils.info("Get text of element " + by);
+        LogUtils.info("Get text of element: " + by);
         String text = getWebElement(by).getText();
         LogUtils.info("==> TEXT: " + text);
         ExtentTestManager.logMessage(Status.PASS, "Get text of element " + by);
-        ExtentTestManager.logMessage(Status.INFO, "==> Text: " + getWebElement(by).getText());
+        ExtentTestManager.logMessage(Status.INFO, "==> Text: " + text);
+        ExtentTestManager.addScreenshot("getElementText_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
+        AllureManager.saveTextLog("==> TEXT: " + text);
         return text;
     }
 
+    @Step("Get attribute: {1} of element: {0}")
     public static String getElementAttribute(By by, String attributeName) {
         waitForElementVisible(by);
         LogUtils.info("Get attribute of element " + by);
         String value = getWebElement(by).getAttribute(attributeName);
         LogUtils.info("==> Attribute value: " + value);
         ExtentTestManager.logMessage(Status.PASS, "Get attribute value of element " + by);
-        ExtentTestManager.logMessage(Status.INFO, "==> Attribute value: " + getWebElement(by).getAttribute(attributeName));
+        ExtentTestManager.logMessage(Status.INFO, "==> Attribute value: " + value);
+        ExtentTestManager.addScreenshot("getElementAttribute_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
+        AllureManager.saveTextLog("==> Attribute value: " + value);
         return value;
     }
 
+    @Step("Get CSS value: {1} of element: {0}")
     public static String getElementCssValue(By by, String cssPropertyName) {
         waitForElementVisible(by);
         LogUtils.info("Get CSS value " + cssPropertyName + " of element " + by);
         String value = getWebElement(by).getCssValue(cssPropertyName);
         LogUtils.info("==> CSS value: " + value);
         ExtentTestManager.logMessage(Status.PASS, "Get CSS value of element " + by);
-        ExtentTestManager.logMessage(Status.INFO, "==> CSS value: " + getWebElement(by).getCssValue(cssPropertyName));
+        ExtentTestManager.logMessage(Status.INFO, "==> CSS value: " + value);
+        ExtentTestManager.addScreenshot("getElementCssValue_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
+        AllureManager.saveTextLog("==> CSS value: " + value);
         return value;
     }
 
+    @Step("Set text and key: {1} on element: {0} ")
     public static void setTextAndKey(By by, String text, Keys key) {
         waitForPageLoaded();
         getWebElement(by).sendKeys(text, key);
         LogUtils.info("Set text and key: " + text + " on element " + by);
-        ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " and key on element " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Set text and key: " + text + " on element " + by);
+        ExtentTestManager.addScreenshot("setTextAndKey_" + SystemHelper.getDateTimeNowFormat());
+        AllureManager.saveScreenshotPNG();
     }
 
     //cuộn/di chuyển tới 1 phần tử
@@ -495,6 +536,7 @@ public class WebUI {
     public static boolean verifyEquals(Object actual, Object expected) {
         waitForPageLoaded();
         LogUtils.info("Verify equals: " + actual + " and " + expected);
+        AllureManager.saveTextLog("Verify equals: " + actual + " and " + expected);
         boolean check = actual.equals(expected);
         return check;
     }
@@ -502,12 +544,14 @@ public class WebUI {
     public static void assertEquals(Object actual, Object expected, String message) {
         waitForPageLoaded();
         LogUtils.info("Assert equals: " + actual + " and " + expected);
+        AllureManager.saveTextLog("Assert equals: " + actual + " and " + expected);
         Assert.assertEquals(actual, expected, message);
     }
 
     public static boolean verifyContains(String actual, String expected) {
         waitForPageLoaded();
         LogUtils.info("Verify contains: " + actual + " and " + expected);
+        AllureManager.saveTextLog("Verify contains: " + actual + " and " + expected);
         boolean check = actual.contains(expected);
         return check;
     }
@@ -515,6 +559,7 @@ public class WebUI {
     public static void assertContains(String actual, String expected, String message) {
         waitForPageLoaded();
         LogUtils.info("Assert contains: " + actual + " and " + expected);
+        AllureManager.saveTextLog("Assert contains: " + actual + " and " + expected);
         boolean check = actual.contains(expected); //cần bước này vì Assert không có Assert Contains
         Assert.assertTrue(check, message);
     }

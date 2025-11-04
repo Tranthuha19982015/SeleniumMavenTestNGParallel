@@ -6,16 +6,24 @@ import com.hatester.Bai34_AllureReport.pages.LeadsPage;
 import com.hatester.Bai34_AllureReport.pages.LoginPage;
 import com.hatester.Bai34_AllureReport.pages.ProjectsPage;
 import com.hatester.common.BaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Link;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@Epic("CRM version 2.0.0")
+@Feature("Dashboard feature")
+@Story("Verify labels on Dashboard")
 public class DashboardTest extends BaseTest {
     private LoginPage loginPage;
     private DashboardPage dashboardPage;
     private ProjectsPage projectsPage;
     private LeadsPage leadsPage;
 
-    @Test
+    @Link(name="Dashboard ticket", url = "https://jira.anhtester.com/dashboard/CRM-06")
+    @Test(priority = 1, description = "TC_DASHBOARD_CRM_01")
     public void testLabelProjectsInProgressOnDashboard() {
         loginPage = new LoginPage();
 //        loginPage.loginCRM("admin@example.com", "123456");

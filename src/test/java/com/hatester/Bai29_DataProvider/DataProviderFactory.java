@@ -33,7 +33,7 @@ public class DataProviderFactory {
         };
     }
 
-    @DataProvider(name = "DataLoginFromExcel", parallel = true)
+    @DataProvider(name = "DataLoginFromExcel", parallel = false)
     public Object[][] dataLoginFromExcel() {
         ExcelHelper excelHelper = new ExcelHelper();
         Object[][] data = excelHelper.getExcelData(SystemHelper.getCurrentDir()

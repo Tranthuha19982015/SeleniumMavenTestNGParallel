@@ -6,19 +6,25 @@ import com.hatester.Bai34_AllureReport.pages.LeadsPage;
 import com.hatester.Bai34_AllureReport.pages.LoginPage;
 import com.hatester.Bai34_AllureReport.pages.TasksPage;
 import com.hatester.common.BaseTest;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Epic("CRM version 2.0.0")
+@Feature("Leads feature")
+@Story("Verify Leads overview")
 public class LeadsTest extends BaseTest {
     private LoginPage loginPage;
     private DashboardPage dashboardPage;
     private LeadsPage leadsPage;
     private TasksPage tasksPage;
 
-    @Test
+    @Description("Verify leads overview page displays correct counts")
+    @Link(name="Lead ticket", url = "https://jira.anhtester.com/lead/CRM-05")
+    @Test(priority = 1, description = "TC_LEAD_CRM_01")
     public void testAddNewLead() {
         loginPage = new LoginPage();
         dashboardPage = loginPage.loginCRM();

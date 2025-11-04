@@ -1,9 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite Allure Report" verbose="1">
-    <test name="Demo TestNG Allure Report">
+<suite name="Suite Allure Report" verbose="1" parallel="methods" thread-count="3">
+    <test name="Demo TestNG Allure Report 1">
         <classes>
             <class name="com.hatester.Bai34_AllureReport.testcases.LoginTest"/>
+        </classes>
+    </test>
+    <test name="Demo TestNG Allure Report 2">
+        <classes>
+            <class name="com.hatester.Bai34_AllureReport.testcases.DashboardTest"/>
+            <class name="com.hatester.Bai34_AllureReport.testcases.LeadsTest"/>
         </classes>
     </test>
 </suite>

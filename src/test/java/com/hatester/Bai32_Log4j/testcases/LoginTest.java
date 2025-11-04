@@ -3,6 +3,7 @@ package com.hatester.Bai32_Log4j.testcases;
 import com.hatester.Bai32_Log4j.pages.LoginPage;
 import com.hatester.common.BaseTest;
 import com.hatester.utils.LogUtils;
+import io.qameta.allure.*;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
@@ -16,6 +17,7 @@ public class LoginTest extends BaseTest {
         loginPage.loginCRM("admin@example.com", "1234567");
         loginPage.verifyLoginSuccess();
     }
+
 
     @Test(priority = 2)
     public void testLoginFailureWithEmailInvalid() {
