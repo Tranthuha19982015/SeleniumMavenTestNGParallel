@@ -28,7 +28,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 2, testName = "Login Fail With Email Invalid", description = "TC_LOGIN_CRM_02")
     public void testLoginFailureWithEmailInvalid() {
         loginPage = new LoginPage();
-        loginPage.loginCRM("12admin@example.com", "123456");
+        loginPage.loginCRM("12admin@example.com", "1234567");
         loginPage.verifyLoginFailureWithInvalidEmailOrPassword();
     }
 

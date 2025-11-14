@@ -5,11 +5,13 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.hatester.drivers.DriverManager;
+import com.hatester.helpers.TestStepHelper;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class ExtentTestManager {
     static Map<Integer, ExtentTest> extentTestMap = new HashMap<>();
@@ -45,9 +47,12 @@ public class ExtentTestManager {
     //hàm để ghi log của report để ghi mô tả/Mô tả trong từng TCs
     public static void logMessage(String message) {
         getTest().log(Status.INFO, message);
+        TestStepHelper.addStep(message);
     }
 
     public static void logMessage(Status status, String message) {
         getTest().log(status, message);
+        TestStepHelper.addStep(message);
     }
+
 }
