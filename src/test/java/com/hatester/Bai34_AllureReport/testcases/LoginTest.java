@@ -18,7 +18,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 1, testName = "Login Success", description = "TC_LOGIN_CRM_01")
     public void testLoginSuccess() {
         loginPage = new LoginPage(); //Khởi tạo đối tượng LoginPage với driver lấy từ BaseTest
-        loginPage.loginCRM("admin@example.com", "1234567");
+        loginPage.loginCRM("admin@example.com", "123456");
         loginPage.verifyLoginSuccess();
     }
 
@@ -48,9 +48,9 @@ public class LoginTest extends BaseTest {
 
     @Test(priority = 5)
     public void testLoginFailureWithPasswordNull() {
-        throw new SkipException("Skipping The Test Method");
-//        loginPage = new LoginPage();
-//        loginPage.loginCRM("admin@example.com", "");
-//        loginPage.verifyLoginFailureWithPasswordNull();
+//        throw new SkipException("Skipping The Test Method");
+        loginPage = new LoginPage();
+        loginPage.loginCRM("admin@example.com", "");
+        loginPage.verifyLoginFailureWithPasswordNull();
     }
 }
