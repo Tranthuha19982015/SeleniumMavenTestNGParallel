@@ -1,9 +1,7 @@
 package com.hatester.listeners;
 
 import com.aventstack.extentreports.Status;
-import com.hatester.helpers.CaptureHelper;
-import com.hatester.helpers.PropertiesHelper;
-import com.hatester.helpers.SystemHelper;
+import com.hatester.helpers.*;
 import com.hatester.reports.AllureManager;
 import com.hatester.reports.ExtentReportManager;
 import com.hatester.reports.ExtentTestManager;
@@ -12,11 +10,9 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.util.List;
+
 public class TestListener implements ITestListener {
-    private static int count_total = 0;
-    private static int count_passed = 0;
-    private static int count_failed = 0;
-    private static int count_skipped = 0;
 
     public String getTestName(ITestResult result) {
         return result.getTestName() != null ? result.getTestName() : result.getMethod().getConstructorOrMethod().getName();
@@ -37,10 +33,6 @@ public class TestListener implements ITestListener {
     @Override
     public void onFinish(ITestContext result) {
         LogUtils.info("Kết thúc bộ test: " + result.getEndDate()); //thời gian kết thúc
-        LogUtils.info("Total testcase: " + count_total);
-        LogUtils.info("Total testcase pass: " + count_passed);
-        LogUtils.info("Total testcase fail: " + count_failed);
-        LogUtils.info("Total testcase skip: " + count_skipped);
         //Generate report
         //Kết thúc và thực thi Extents Report
         ExtentReportManager.getExtentReports().flush();
@@ -50,7 +42,6 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestStart(ITestResult result) {
         LogUtils.info("Test Started: " + result.getName());
-        count_total++;
         //Write log to file
         CaptureHelper.startRecord(result.getName());
         //Bắt đầu ghi 1 TCs mới vào Extent Report
@@ -61,7 +52,6 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult result) {
         LogUtils.info("Test case " + result.getName() + " is passed.");
 //        LogUtils.info("==> Status: " + result.getStatus());
-        count_passed++;
         //Write log to file
         //Write status to report
 
@@ -75,30 +65,51 @@ public class TestListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         LogUtils.error("Test case " + result.getName() + " is failed.");
 //        LogUtils.info("==> Status: " + result.getStatus());
-        count_failed++;
-        LogUtils.error("==> Reason: " + result.getThrowable()); //Lấy lý do lỗi
-        CaptureHelper.takeScreenshot(result.getName() + "_" + SystemHelper.getDateTimeNowFormat()); //Lấy tên TCs làm tên hình ảnh
-        //Create ticket on Jira
-        //Write log to file
-        //Write status to report
+        try {
+            LogUtils.error("==> Reason: " + result.getThrowable()); //Lấy lý do lỗi
+            CaptureHelper.takeScreenshot(result.getName() + "_" + SystemHelper.getDateTimeNowFormat()); //Lấy tên TCs làm tên hình ảnh
 
-        //Extent Report
-        ExtentTestManager.addScreenshot(result.getName());
-        ExtentTestManager.logMessage(Status.FAIL, result.getThrowable().toString());
-        ExtentTestManager.logMessage(Status.FAIL, result.getName() + " is failed.");
+            //Create ticket on Jira
+            if (PropertiesHelper.getValue("CREATE_TICKET_JIRA").equals("true")) {
 
-        //Allure Report
-        AllureManager.saveTextLog(result.getName() + " is failed.");
-        AllureManager.saveScreenshotPNG();
+                // Lấy các step
+                List<String> steps = TestStepHelper.getSteps();
+                Throwable cause = result.getThrowable();
+                String message = (cause != null) ? cause.getMessage() : "Unknown failure";
+                // Lưu Actual Result
+                TestStepHelper.setActualResult(message);
 
-        CaptureHelper.stopRecord();
+                JiraNodoHelper.createJiraTicket(result.getName(), steps.toArray(new String[0]));
+                System.out.println("Jira ticket created for failed test: " + result.getName());
+                // Xoá steps sau khi dùng
+                TestStepHelper.clear();
+            }
+            //Write log to file
+            //Write status to report
+
+            //Extent Report
+            ExtentTestManager.addScreenshot(result.getName());
+            ExtentTestManager.logMessage(Status.FAIL, result.getThrowable().toString());
+            ExtentTestManager.logMessage(Status.FAIL, result.getName() + " is failed.");
+
+            //Allure Report
+//            AllureManager.saveTextLog(result.getName() + " is failed.");
+//            AllureManager.saveScreenshotPNG();
+        } catch (Exception e) {
+            LogUtils.error("Error while handling onTestFailure: " + e.getMessage());
+        } finally {
+            // Đảm bảo stopRecord() luôn được gọi dù có lỗi ở trên
+            try {
+                CaptureHelper.stopRecord();
+            } catch (Exception ex) {
+                LogUtils.warn("Could not stop recording: " + ex.getMessage());
+            }
+        }
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
         LogUtils.warn("Test case " + result.getName() + " is skipped.");
-//        LogUtils.info("==> Status: " + result.getStatus());
-        count_skipped++;
         //Write log to file
         //Write status to report
 
