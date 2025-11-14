@@ -14,7 +14,7 @@ import java.util.Base64;
 
 public class JiraHelper {
 
-    private static final String JIRA_URL = PropertiesHelper.getValue("JIRA_URL");
+    private static final String JIRA_URL = PropertiesHelper.getValue("JIRA_URL_ATLASS");
     private static final String EMAIL = PropertiesHelper.getValue("EMAIL");
     private static final String API_TOKEN = PropertiesHelper.getValue("API_TOKEN");
 
