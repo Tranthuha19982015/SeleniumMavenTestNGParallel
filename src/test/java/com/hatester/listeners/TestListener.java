@@ -43,7 +43,10 @@ public class TestListener implements ITestListener {
     public void onTestStart(ITestResult result) {
         LogUtils.info("Test Started: " + result.getName());
         //Write log to file
-        CaptureHelper.startRecord(result.getName());
+
+        if (PropertiesHelper.getValue("VIDEO_RECORD").equals("true")) {
+            CaptureHelper.startRecord(result.getName());
+        }
         //Bắt đầu ghi 1 TCs mới vào Extent Report
         ExtentTestManager.saveToReport(getTestName(result), getTestDescription(result));
     }
@@ -56,54 +59,49 @@ public class TestListener implements ITestListener {
         //Write status to report
 
         //Extent Report
-        ExtentTestManager.logMessage(Status.PASS, result.getName() + " is passed.");
+        if (PropertiesHelper.getValue("SCREENSHOT_SUCCESS").equals("true")) {
+            ExtentTestManager.logMessage(Status.PASS, result.getName() + " is passed.");
+        }
 
-        CaptureHelper.stopRecord();
+        if (PropertiesHelper.getValue("VIDEO_RECORD").equals("true")) {
+            CaptureHelper.stopRecord();
+        }
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         LogUtils.error("Test case " + result.getName() + " is failed.");
 //        LogUtils.info("==> Status: " + result.getStatus());
-        try {
-            LogUtils.error("==> Reason: " + result.getThrowable()); //Lấy lý do lỗi
-            CaptureHelper.takeScreenshot(result.getName() + "_" + SystemHelper.getDateTimeNowFormat()); //Lấy tên TCs làm tên hình ảnh
 
-            //Create ticket on Jira
-            if (PropertiesHelper.getValue("CREATE_TICKET_JIRA").equals("true")) {
+        LogUtils.error("==> Reason: " + result.getThrowable()); //Lấy lý do lỗi
+        CaptureHelper.takeScreenshot(result.getName() + "_" + SystemHelper.getDateTimeNowFormat()); //Lấy tên TCs làm tên hình ảnh
 
-                // Lấy các step
-                List<String> steps = TestStepHelper.getSteps();
-                Throwable cause = result.getThrowable();
-                String message = (cause != null) ? cause.getMessage() : "Unknown failure";
-                // Lưu Actual Result
-                TestStepHelper.setActualResult(message);
+        //Create ticket on Jira
+        if (PropertiesHelper.getValue("CREATE_TICKET_JIRA").equals("true")) {
 
-                JiraNodoHelper.createJiraTicket(result.getName(), steps.toArray(new String[0]));
-                System.out.println("Jira ticket created for failed test: " + result.getName());
-                // Xoá steps sau khi dùng
-                TestStepHelper.clear();
-            }
-            //Write log to file
-            //Write status to report
+            // Lấy các step
+            List<String> steps = TestStepHelper.getSteps();
+            Throwable cause = result.getThrowable();
+            String message = (cause != null) ? cause.getMessage() : "Unknown failure";
+            // Lưu Actual Result
+            TestStepHelper.setActualResult(message);
 
-            //Extent Report
+            JiraNodoHelper.createJiraTicket(result.getName(), steps.toArray(new String[0]));
+            System.out.println("Jira ticket created for failed test: " + result.getName());
+            // Xoá steps sau khi dùng
+            TestStepHelper.clear();
+        }
+        //Write log to file
+        //Write status to report
+
+        //Extent Report
+        if (PropertiesHelper.getValue("SCREENSHOT_FAILURE").equals("true")) {
             ExtentTestManager.addScreenshot(result.getName());
             ExtentTestManager.logMessage(Status.FAIL, result.getThrowable().toString());
             ExtentTestManager.logMessage(Status.FAIL, result.getName() + " is failed.");
-
-            //Allure Report
-//            AllureManager.saveTextLog(result.getName() + " is failed.");
-//            AllureManager.saveScreenshotPNG();
-        } catch (Exception e) {
-            LogUtils.error("Error while handling onTestFailure: " + e.getMessage());
-        } finally {
-            // Đảm bảo stopRecord() luôn được gọi dù có lỗi ở trên
-            try {
-                CaptureHelper.stopRecord();
-            } catch (Exception ex) {
-                LogUtils.warn("Could not stop recording: " + ex.getMessage());
-            }
+        }
+        if (PropertiesHelper.getValue("VIDEO_RECORD").equals("true")) {
+            CaptureHelper.stopRecord();
         }
     }
 
@@ -116,6 +114,8 @@ public class TestListener implements ITestListener {
         //Extent Report
         ExtentTestManager.logMessage(Status.SKIP, result.getThrowable().toString());
 
-        CaptureHelper.stopRecord();
+        if (PropertiesHelper.getValue("VIDEO_RECORD").equals("true")) {
+            CaptureHelper.stopRecord();
+        }
     }
 }

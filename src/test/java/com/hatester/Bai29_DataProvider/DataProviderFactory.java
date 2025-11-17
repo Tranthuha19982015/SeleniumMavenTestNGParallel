@@ -47,7 +47,7 @@ public class DataProviderFactory {
         ExcelHelper excelHelper = new ExcelHelper();
         Object[][] data = excelHelper.getDataHashTable(SystemHelper.getCurrentDir()
                 + "src/test/resources/testdata/dataCRM.xlsx", "Login_DataProvider", 1, 3);
-        System.out.println("Login Data from Excel (Hashtable): " + data);
+        System.out.println("Loaded data from Excel: " + Arrays.deepToString(data));
         return data;
     }
 

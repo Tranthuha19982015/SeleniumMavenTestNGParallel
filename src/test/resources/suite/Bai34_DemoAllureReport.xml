@@ -6,10 +6,10 @@
             <class name="com.hatester.Bai34_AllureReport.testcases.LoginTest"/>
         </classes>
     </test>
-    <test name="Demo TestNG Allure Report 2">
-        <classes>
-            <class name="com.hatester.Bai34_AllureReport.testcases.DashboardTest"/>
-<!--            <class name="com.hatester.Bai34_AllureReport.testcases.LeadsTest"/>-->
-        </classes>
-    </test>
+<!--    <test name="Demo TestNG Allure Report 2">-->
+<!--        <classes>-->
+<!--            <class name="com.hatester.Bai34_AllureReport.testcases.DashboardTest"/>-->
+<!--&lt;!&ndash;            <class name="com.hatester.Bai34_AllureReport.testcases.LeadsTest"/>&ndash;&gt;-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

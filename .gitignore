@@ -16,6 +16,7 @@ target/
 .exports/screenshots/
 .exports/logs/
 .reports/extendreport/
+.reports/screenshots/
 .target/allure-results/
 
 ### Eclipse ###

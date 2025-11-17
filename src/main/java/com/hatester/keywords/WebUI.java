@@ -268,8 +268,10 @@ public class WebUI {
         waitForElementToBeClickable(by).click();
         LogUtils.info("Click on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Click on element " + by);
-        ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
     @Step("Click on element: {0} with timeout: {1} seconds")
@@ -278,8 +280,10 @@ public class WebUI {
         waitForElementToBeClickable(by, seconds).click();
         LogUtils.info("Click on element " + by + "with: " + seconds + "(s)");
         ExtentTestManager.logMessage(Status.PASS, "Click on element " + by + "with: " + seconds + "(s)");
-        ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
     @Step("Clear text of element: {0}")
@@ -288,8 +292,10 @@ public class WebUI {
         waitForElementVisible(by).clear();
         LogUtils.info("Clear text of element: " + by);
         ExtentTestManager.logMessage(Status.PASS, "Clear text on element " + by);
-        ExtentTestManager.addScreenshot("clearElementText_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("clearElementText_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
     @Step("Set text: {1} on element: {0}")
@@ -298,8 +304,10 @@ public class WebUI {
         waitForElementVisible(by).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " on element " + by);
-        ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
     @Step("Set text: {1} on element: {0} with timeout: {2} seconds")
@@ -308,8 +316,10 @@ public class WebUI {
         waitForElementVisible(by, seconds).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " on element " + by);
-        ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
     @Step("Set key on element: {0}")
@@ -317,8 +327,10 @@ public class WebUI {
         waitForElementVisible(by).sendKeys(key);
         LogUtils.info("Set key on element: " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set key on element " + by);
-        ExtentTestManager.addScreenshot("setKey_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("setKey_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
     @Step("Get text of element: {0}")
@@ -330,8 +342,10 @@ public class WebUI {
         LogUtils.info("==> TEXT: " + text);
         ExtentTestManager.logMessage(Status.PASS, "Get text of element " + by);
         ExtentTestManager.logMessage(Status.INFO, "==> Text: " + text);
-        ExtentTestManager.addScreenshot("getElementText_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("getElementText_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
         AllureManager.saveTextLog("==> TEXT: " + text);
         return text;
     }
@@ -344,8 +358,10 @@ public class WebUI {
         LogUtils.info("==> Attribute value: " + value);
         ExtentTestManager.logMessage(Status.PASS, "Get attribute value of element " + by);
         ExtentTestManager.logMessage(Status.INFO, "==> Attribute value: " + value);
-        ExtentTestManager.addScreenshot("getElementAttribute_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("getElementAttribute_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
         AllureManager.saveTextLog("==> Attribute value: " + value);
         return value;
     }
@@ -358,8 +374,10 @@ public class WebUI {
         LogUtils.info("==> CSS value: " + value);
         ExtentTestManager.logMessage(Status.PASS, "Get CSS value of element " + by);
         ExtentTestManager.logMessage(Status.INFO, "==> CSS value: " + value);
-        ExtentTestManager.addScreenshot("getElementCssValue_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("getElementCssValue_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
         AllureManager.saveTextLog("==> CSS value: " + value);
         return value;
     }
@@ -370,8 +388,10 @@ public class WebUI {
         getWebElement(by).sendKeys(text, key);
         LogUtils.info("Set text and key: " + text + " on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set text and key: " + text + " on element " + by);
-        ExtentTestManager.addScreenshot("setTextAndKey_" + SystemHelper.getDateTimeNowFormat());
-        AllureManager.saveScreenshotPNG();
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            ExtentTestManager.addScreenshot("setTextAndKey_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
     //cuộn/di chuyển tới 1 phần tử
