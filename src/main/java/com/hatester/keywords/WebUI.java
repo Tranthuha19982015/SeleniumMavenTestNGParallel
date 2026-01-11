@@ -210,6 +210,21 @@ public class WebUI {
         LogUtils.info("Switched back to default content");
     }
 
+    public static void switchToParentFrame() {
+        DriverManager.getDriver().switchTo().parentFrame();
+        LogUtils.info("Switched back to parent frame");
+    }
+
+    public static void acceptAlert() {
+        DriverManager.getDriver().switchTo().alert().accept();
+        LogUtils.info("Accepted alert");
+    }
+
+    public static void dismissAlert() {
+        DriverManager.getDriver().switchTo().alert().dismiss();
+        LogUtils.info("Dismissed alert");
+    }
+
     public static Boolean checkElementExist(By by) {
         waitForElementVisible(by);
         List<WebElement> listElement = getWebElements(by);
