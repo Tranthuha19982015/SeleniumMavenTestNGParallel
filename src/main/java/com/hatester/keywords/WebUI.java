@@ -231,11 +231,11 @@ public class WebUI {
             try {
                 WebElement element = getWebElement(by);
                 if (element != null) {
-                    LogUtils.info("Tìm thấy phần tử ở lần thử thứ " + (retryCount + 1));
+                    LogUtils.info("Element was found on attempt " + (retryCount + 1));
                     return true; // Phần tử được tìm thấy
                 }
             } catch (NoSuchElementException e) {
-                LogUtils.warn("Không tìm thấy phần tử. Thử lại lần " + (retryCount + 1));
+                LogUtils.warn("Element not found. Retry attempt " + (retryCount + 1));
                 retryCount++;
                 try {
                     Thread.sleep(waitTimeMillis); // Chờ trước khi thử lại
@@ -244,9 +244,8 @@ public class WebUI {
                 }
             }
         }
-
         // Trả về false nếu không tìm thấy phần tử sau maxRetries lần
-        LogUtils.info("Không tìm thấy phần tử sau " + maxRetries + " lần thử.");
+        LogUtils.info("Failed to find element after " + maxRetries + " attempts.");
         return false;
     }
 
