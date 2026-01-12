@@ -25,7 +25,6 @@ public class SystemHelper {
         //Định dạng ngày giờ theo pattern
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-
         //Chuyển sang chuỗi và thay thế ký tự
         String formatted = now.format(formatter).replace("-", "_").replace(":", "_").replace(" ", "_");
         return formatted;

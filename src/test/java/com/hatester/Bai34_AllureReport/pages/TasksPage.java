@@ -180,7 +180,7 @@ public class TasksPage extends BasePage {
 
         //fill iFrame Description
         WebUI.clickElement(inputTaskDescription);
-        WebUI.waitForSwitchToFrameWhenAvailable(iframeTaskDescription);
+        WebUI.switchToFrame(iframeTaskDescription);
         WebUI.setText(inputOnFrame, "htest iframe");
         WebUI.switchToDefaultContent();
     }

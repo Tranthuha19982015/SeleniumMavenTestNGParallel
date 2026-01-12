@@ -15,6 +15,8 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
+import static com.hatester.constants.FrameworkConstant.*;
+
 @Listeners(TestListener.class)
 public class BaseTest {
     public SoftAssert softAssert;
@@ -30,10 +32,10 @@ public class BaseTest {
         WebDriver driver;
 
         //Nếu properties có truyền browser thì ưu tiên lấy browser từ đây, k có thì lấy từ file xml, nếu xml không truyền thì lấy từ Optional
-        if (PropertiesHelper.getValue("BROWSER") == null || PropertiesHelper.getValue("BROWSER").isEmpty()) {
+        if (BROWSER == null || BROWSER.isEmpty()) {
             browserName = browserName;
         } else {
-            browserName = PropertiesHelper.getValue("BROWSER");
+            browserName = BROWSER;
         }
 
         switch (browserName.trim().toLowerCase()) {
@@ -41,9 +43,9 @@ public class BaseTest {
                 LogUtils.info("Launching Chrome browser...");
 
                 ChromeOptions options = new ChromeOptions();
-                if (PropertiesHelper.getValue("HEADLESS").equalsIgnoreCase("true")) {
+                if (HEADLESS.equalsIgnoreCase("true")) {
                     options.addArguments("--headless=new");  //chạy headless
-                    options.addArguments("--window-size=" + PropertiesHelper.getValue("WINDOW-SIZE")); // set kích thước
+                    options.addArguments("--window-size=" + WINDOW_SIZE); // set kích thước
                 }
                 driver = new ChromeDriver(options);
                 break;
@@ -61,8 +63,8 @@ public class BaseTest {
         }
 
         DriverManager.setDriver(driver);
-        if (PropertiesHelper.getValue("HEADLESS").equalsIgnoreCase("false")) {
-            LogUtils.info("Headless: " + PropertiesHelper.getValue("HEADLESS"));
+        if (HEADLESS.equalsIgnoreCase("false")) {
+            LogUtils.info("Headless: " + HEADLESS);
             DriverManager.getDriver().manage().window().maximize();
         }
         softAssert = new SoftAssert();

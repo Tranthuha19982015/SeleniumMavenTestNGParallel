@@ -5,6 +5,8 @@ import com.hatester.keywords.WebUI;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
+import static com.hatester.constants.FrameworkConstant.*;
+
 public class LoginPage extends BasePage {
     //Khai báo các đối tượng element thuộc về trang Login (khai báo những element cần thiết cho TCs sau này)
     private By headerLoginPage = By.xpath("//h1[normalize-space()='Login']");
@@ -25,7 +27,7 @@ public class LoginPage extends BasePage {
     }
 
     public void navigateToLoginAdminCRM() {
-        WebUI.openURL(PropertiesHelper.getValue("URL"));
+        WebUI.openURL(URL);
         WebUI.waitForPageLoaded();
     }
 
@@ -51,8 +53,8 @@ public class LoginPage extends BasePage {
 
     public DashboardPage loginCRM() { //Dùng để liên kết trang
         navigateToLoginAdminCRM();
-        enterEmail(PropertiesHelper.getValue("EMAIL"));
-        enterPassword(PropertiesHelper.getValue("PASSWORD"));
+        enterEmail(EMAIL);
+        enterPassword(PASSWORD);
         clickLoginButton();
         WebUI.waitForPageLoaded();
         verifyLoginSuccess();

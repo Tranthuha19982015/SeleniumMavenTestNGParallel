@@ -15,6 +15,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+import static com.hatester.constants.FrameworkConstant.*;
 import static org.monte.media.FormatKeys.*;
 import static org.monte.media.VideoFormatKeys.*;
 
@@ -92,14 +93,14 @@ public class CaptureHelper extends ScreenRecorder {
         File source = ts.getScreenshotAs(OutputType.FILE);  //chụp ảnh màn hình trang hiện tại (snapshot của browser)
 
         //kiểm tra folder tồn tại không, nếu không thì tạo mới folder theo đường dẫn
-        File theDir = new File(PropertiesHelper.getValue("SCREENSHOT_PATH"));  //Lưu file vào exports/screenshots
+        File theDir = new File(SCREENSHOT_PATH);  //Lưu file vào exports/screenshots
         if (!theDir.exists()) {
             theDir.mkdirs();
         }
 
         //lưu file ảnh với tên cụ thể vào đường dẫn
         try {
-            FileHandler.copy(source, new File(PropertiesHelper.getValue("SCREENSHOT_PATH") + "/" + screenshotName + ".png"));
+            FileHandler.copy(source, new File(SCREENSHOT_PATH + "/" + screenshotName + ".png"));
             //FileHandler.copy để copy file tạm sang vị trí đích
         } catch (IOException e) {
             throw new RuntimeException(e);

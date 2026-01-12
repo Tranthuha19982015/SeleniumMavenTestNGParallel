@@ -2,14 +2,12 @@ package com.hatester.keywords;
 
 import com.aventstack.extentreports.Status;
 import com.hatester.drivers.DriverManager;
-import com.hatester.helpers.PropertiesHelper;
 import com.hatester.helpers.SystemHelper;
 import com.hatester.reports.AllureManager;
 import com.hatester.reports.ExtentTestManager;
 import com.hatester.utils.LogUtils;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
-import org.openqa.selenium.bidi.log.Log;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,12 +19,9 @@ import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.List;
 
+import static com.hatester.constants.FrameworkConstant.*;
+
 public class WebUI {
-
-    private static int WAIT_TIMEOUT = Integer.parseInt(PropertiesHelper.getValue("WAIT_TIMEOUT"));
-    private static double STEP_TIME = Double.parseDouble(PropertiesHelper.getValue("STEP_TIME"));
-    private static int PAGE_LOAD_TIMEOUT = Integer.parseInt(PropertiesHelper.getValue("PAGE_LOAD_TIMEOUT"));
-
     public static void logConsole(Object message) {
         LogUtils.info(message);
     }
@@ -65,7 +60,7 @@ public class WebUI {
     public static WebElement waitForElementVisible(By by) {
         WebElement element = null;
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(POOL_TIME));
             element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             highlightElement(by);
             return element;
@@ -79,7 +74,7 @@ public class WebUI {
     public static WebElement waitForElementVisible(By by, int seconds) {
         WebElement element = null;
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(seconds), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(seconds), Duration.ofMillis(POOL_TIME));
             element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             highlightElement(by);
             return element;
@@ -93,7 +88,7 @@ public class WebUI {
     public static WebElement waitForElementToBeClickable(By by) {
         WebElement element = null;
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(POOL_TIME));
             element = wait.until(ExpectedConditions.elementToBeClickable(by));
             highlightElement(by);
             return element;
@@ -107,7 +102,7 @@ public class WebUI {
     public static WebElement waitForElementToBeClickable(By by, int seconds) {
         WebElement element = null;
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(seconds), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(seconds), Duration.ofMillis(POOL_TIME));
             element = wait.until(ExpectedConditions.elementToBeClickable(by));
             highlightElement(by);
             return element;
@@ -121,7 +116,7 @@ public class WebUI {
     public static WebElement waitForElementPresent(By by) {
         WebElement element = null;
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(POOL_TIME));
             element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
             highlightElement(by);
             return element;
@@ -135,7 +130,7 @@ public class WebUI {
     public static WebElement waitForElementPresent(By by, int seconds) {
         WebElement element = null;
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(seconds), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(seconds), Duration.ofMillis(POOL_TIME));
             element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
             highlightElement(by);
             return element;
@@ -148,8 +143,8 @@ public class WebUI {
 
     //Chờ đợi trang load xong mới thao tác
     public static void waitForPageLoaded() {
-        //Duration.ofMillis(500): Khoảng thời gian nghỉ trong mỗi vòng lặp
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(PAGE_LOAD_TIMEOUT), Duration.ofMillis(500));
+        //Duration.ofMillis(POOL_TIME): Khoảng thời gian nghỉ trong mỗi vòng lặp
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(PAGE_LOAD_TIMEOUT), Duration.ofMillis(POOL_TIME));
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
 
         //Wait for Javascript to load
@@ -175,7 +170,7 @@ public class WebUI {
 
     public static void waitForElementNotVisible(By by) {
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(POOL_TIME));
             wait.until(ExpectedConditions.invisibilityOf(getWebElement(by)));
         } catch (Throwable error) {
             LogUtils.error("Timeout waiting for the element Not Visible " + by.toString());
@@ -186,7 +181,7 @@ public class WebUI {
     public static void waitForSearchResult(By by) {
         try {
             int oldCount = getWebElements(by).size();
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(POOL_TIME));
             wait.until(ExpectedConditions.numberOfElementsToBeLessThan(by, oldCount));
         } catch (Throwable error) {
             LogUtils.error("Timeout while waiting for search results. " + by.toString());
@@ -194,14 +189,25 @@ public class WebUI {
         }
     }
 
-    public static void waitForSwitchToFrameWhenAvailable(By by) {
+    public static void switchToFrame(By by) {
         try {
-            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(500));
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_TIMEOUT), Duration.ofMillis(POOL_TIME));
             wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
             LogUtils.info("Switched to iframe: " + by);
         } catch (Throwable error) {
-            LogUtils.error("Timeout waiting for the iFrame Visible " + by.toString());
-            Assert.fail("Timeout waiting for the iFrame Visible " + by.toString());
+            LogUtils.error("Timeout waiting for Switch To Frame. " + by.toString());
+            Assert.fail("Timeout waiting for Switch To Frame. " + by.toString());
+        }
+    }
+
+    public static void switchToFrame(By by, int seconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(seconds), Duration.ofMillis(POOL_TIME));
+            wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
+            LogUtils.info("Switched to iframe: " + by);
+        } catch (Throwable error) {
+            LogUtils.error("Timeout waiting for switch to Frame with " + seconds + "s : " + by.toString());
+            Assert.fail("Timeout waiting for switch to Frame with " + seconds + "s : " + by.toString());
         }
     }
 
@@ -267,10 +273,10 @@ public class WebUI {
     @Step("Open URL: {0}")
     public static void openURL(String url) {
         DriverManager.getDriver().get(url);
-        sleep(STEP_TIME);
+        sleep(WAIT_SLEEP_STEP);
         LogUtils.info("Open URL: " + url);
         ExtentTestManager.logMessage(Status.PASS, "Open URL: " + url);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("openURL_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -278,11 +284,11 @@ public class WebUI {
 
     @Step("Click on element: {0}")
     public static void clickElement(By by) {
-        sleep(STEP_TIME);
+        sleep(WAIT_SLEEP_STEP);
         waitForElementToBeClickable(by).click();
         LogUtils.info("Click on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Click on element " + by);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -290,11 +296,11 @@ public class WebUI {
 
     @Step("Click on element: {0} with timeout: {1} seconds")
     public static void clickElement(By by, int seconds) {
-        sleep(STEP_TIME);
+        sleep(WAIT_SLEEP_STEP);
         waitForElementToBeClickable(by, seconds).click();
         LogUtils.info("Click on element " + by + "with: " + seconds + "(s)");
         ExtentTestManager.logMessage(Status.PASS, "Click on element " + by + "with: " + seconds + "(s)");
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -302,11 +308,11 @@ public class WebUI {
 
     @Step("Clear text of element: {0}")
     public static void clearElementText(By by) {
-        sleep(STEP_TIME);
+        sleep(WAIT_SLEEP_STEP);
         waitForElementVisible(by).clear();
         LogUtils.info("Clear text of element: " + by);
         ExtentTestManager.logMessage(Status.PASS, "Clear text on element " + by);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("clearElementText_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -314,11 +320,11 @@ public class WebUI {
 
     @Step("Set text: {1} on element: {0}")
     public static void setText(By by, String text) {
-        sleep(STEP_TIME);
+        sleep(WAIT_SLEEP_STEP);
         waitForElementVisible(by).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " on element " + by);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -326,11 +332,11 @@ public class WebUI {
 
     @Step("Set text: {1} on element: {0} with timeout: {2} seconds")
     public static void setText(By by, String text, int seconds) {
-        sleep(STEP_TIME);
+        sleep(WAIT_SLEEP_STEP);
         waitForElementVisible(by, seconds).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set text " + text + " on element " + by);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -341,7 +347,7 @@ public class WebUI {
         waitForElementVisible(by).sendKeys(key);
         LogUtils.info("Set key on element: " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set key on element " + by);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("setKey_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -350,13 +356,13 @@ public class WebUI {
     @Step("Get text of element: {0}")
     public static String getElementText(By by) {
         waitForElementVisible(by);
-        sleep(STEP_TIME);
+        sleep(WAIT_SLEEP_STEP);
         LogUtils.info("Get text of element: " + by);
         String text = getWebElement(by).getText();
         LogUtils.info("==> TEXT: " + text);
         ExtentTestManager.logMessage(Status.PASS, "Get text of element " + by);
         ExtentTestManager.logMessage(Status.INFO, "==> Text: " + text);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("getElementText_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -372,7 +378,7 @@ public class WebUI {
         LogUtils.info("==> Attribute value: " + value);
         ExtentTestManager.logMessage(Status.PASS, "Get attribute value of element " + by);
         ExtentTestManager.logMessage(Status.INFO, "==> Attribute value: " + value);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("getElementAttribute_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -388,7 +394,7 @@ public class WebUI {
         LogUtils.info("==> CSS value: " + value);
         ExtentTestManager.logMessage(Status.PASS, "Get CSS value of element " + by);
         ExtentTestManager.logMessage(Status.INFO, "==> CSS value: " + value);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("getElementCssValue_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }
@@ -402,7 +408,7 @@ public class WebUI {
         getWebElement(by).sendKeys(text, key);
         LogUtils.info("Set text and key: " + text + " on element " + by);
         ExtentTestManager.logMessage(Status.PASS, "Set text and key: " + text + " on element " + by);
-        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+        if (SCREENSHOT_ALL_STEPS.equals("true")) {
             ExtentTestManager.addScreenshot("setTextAndKey_" + SystemHelper.getDateTimeNowFormat());
             AllureManager.saveScreenshotPNG();
         }

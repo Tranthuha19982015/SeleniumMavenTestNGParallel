@@ -151,7 +151,7 @@ public class ProjectsPage extends BasePage {
         WebUI.setText(inputTags, "htest13825");
 
         // Switch to iframe for description input
-        WebUI.waitForSwitchToFrameWhenAvailable(iFrameDescription);
+        WebUI.switchToFrame(iFrameDescription);
         WebUI.setText(inputDescription, "Here is the description of the iframe test project.");
         WebUI.switchToDefaultContent();
         WebUI.clickElement(checkboxSendProjectCreatedEmail);
